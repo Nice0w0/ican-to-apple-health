@@ -10,7 +10,7 @@ Every identifier and parameter shape below was read off a shortcut the user
 built on their own device (see sample-*.plist), not inferred, with one
 exception noted at the sort/limit keys.
 
-    python3 build_api_shortcut.py --url https://host/api/convert --token XXX
+    python3 build_shortcut.py --url https://host/api/convert [--token XXX]
 """
 
 import argparse
@@ -106,7 +106,11 @@ def build(url, token, unit="mg/dL", every=0, window=7):
         "Removable": False,
         "Values": {"Number": str(window), "Unit": 16},
     }] if window else []
-    base = "%s?token=%s&unit=%s%s&since=" % (url, token, quote(unit), thin)
+    # on_error=empty: an error must come back as nothing to log, never as a
+    # dictionary the loop below would turn into a glucose of 0. See
+    # api/convert.py.
+    auth = ("token=%s&" % token) if token else ""
+    base = "%s?%sunit=%s%s&on_error=empty&since=" % (url, auth, quote(unit), thin)
 
     actions = [
         {
@@ -266,7 +270,9 @@ def build(url, token, unit="mg/dL", every=0, window=7):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--url", required=True)
-    ap.add_argument("--token", required=True)
+    ap.add_argument("--token", default="",
+                    help="only if the deployment sets CGM_TOKEN; the public "
+                         "instance does not")
     ap.add_argument("--unit", default="mg/dL", choices=["mg/dL", "mmol/L"],
                     help="must match the unit your Health app expects")
     ap.add_argument("--every", type=int, default=0, metavar="MINUTES",

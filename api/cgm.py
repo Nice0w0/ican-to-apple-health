@@ -1,10 +1,9 @@
 """
 Core conversion: CGM .xls upload -> list of readings.
 
-Standard library only, deliberately. That is what lets this deploy to a free
-serverless tier with no build step and no dependency to keep patched, and it is
-why the whole thing can be run by anyone who wants it without asking the author
-to host anything.
+Standard library only, deliberately: no build step and no dependency to keep
+patched, which is what lets one free serverless instance serve everyone who
+downloads the shortcut.
 
 Nothing here writes to disk or keeps state between calls.
 """

@@ -26,49 +26,52 @@ the single gap this project fills. Everything else is stock iOS.
 Built and verified end to end on an iPhone: readings land in Apple Health with
 their real measurement times, not the import time.
 
+## Install
+
+Download the shortcut for the unit your Health app should record — on the
+iPhone, open the link, then **Download raw file** and open it:
+
+- **mg/dL** (most Thai users): [`shortcut/mg-dL/iCan to Health.shortcut`](shortcut/mg-dL/iCan%20to%20Health.shortcut)
+- **mmol/L**: [`shortcut/mmol-L/iCan to Health.shortcut`](shortcut/mmol-L/iCan%20to%20Health.shortcut)
+
+Add it, then in the iCan app share / export → **iCan to Health**. The first run
+asks for Health access. No account, no token, nothing to configure.
+
+With no Blood Glucose in Health from the last 7 days, the first run imports the
+whole export, which can take a few minutes. After that only readings newer than
+the latest one in Health come in.
+
 ## Why this exists
 
 Apple Health can only be written from iOS, and the Shortcuts app cannot read
 `.xls` — the export is a real OLE2/BIFF8 binary, not a spreadsheet Shortcuts
 understands. Something has to do the conversion. This is that something: a
-small HTTP endpoint you run yourself.
+small HTTP endpoint at `https://ican-health-sync.vercel.app/api/convert`, which
+the shortcut calls.
 
-## It stores nothing
+## What happens to your data
 
-No database, no accounts, no logging of readings. The service parses the
-upload, returns the readings, and forgets. Whoever runs it never becomes the
-custodian of anyone's medical data.
+The shortcut sends your export to that endpoint, which runs on Vercel. It
+parses the upload, returns the readings, and forgets: no database, no
+accounts, and the code logs no readings. The export does pass through the
+server, though — if you would rather it never left your own machine, run your
+own copy (below) and point the shortcut at it.
 
 De-duplication is handled by **Apple Health itself**: the Shortcut asks Health
 for its newest Blood Glucose sample and sends that timestamp as `?since=`, so
 only genuinely new readings come back. HealthKit has no upsert — `Log Health
 Sample` only ever appends — so this filtering has to happen before logging.
 
-Run your own instance. Nobody operates this as a service — there is no
-endpoint to share, and pointing your Shortcut at a stranger's deployment would
-mean handing them your glucose data.
+## Run your own copy (optional)
 
-## Deploy your own
-
-There is no shared instance and no service to sign up for. You deploy a copy,
-it answers only to you, and it keeps nothing.
-
-### Vercel (free, nothing to maintain)
+### Vercel
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Nice0w0/ican-health-sync)
 
 Click, connect your GitHub account, done. You get an HTTPS URL like
-`https://your-project.vercel.app`. Every push redeploys automatically.
-
-Then set two environment variables in the Vercel dashboard
-(Settings → Environment Variables):
-
-| Variable | Value |
-|---|---|
-| `CGM_TZ_OFFSET` | your UTC offset in hours, e.g. `7` for Bangkok |
-| `CGM_TOKEN` | any long random string — required, since a Vercel URL is public |
-
-Your endpoint is `https://your-project.vercel.app/api/convert`.
+`https://your-project.vercel.app`, and your endpoint is
+`https://your-project.vercel.app/api/convert`. Set `CGM_TZ_OFFSET` if you are
+not in UTC+7, and `CGM_TOKEN` if only you should be able to use it.
 
 ### Self-hosted
 
@@ -82,7 +85,7 @@ python3 server.py        # http://127.0.0.1:8000/api/convert
 Or with Docker:
 
 ```bash
-cp .env.example .env      # set CGM_TOKEN
+cp .env.example .env
 docker compose up -d --build
 ```
 
@@ -99,7 +102,7 @@ cgm.example.com {
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `CGM_TOKEN` | *(unset)* | If set, requests must carry `X-Token` or `?token=`. **Set it on any public deployment.** |
+| `CGM_TOKEN` | *(unset)* | If set, requests must carry `X-Token` or `?token=`. Leave it unset for an instance anyone may use, as the public one is. |
 | `CGM_TZ_OFFSET` | `7` | **The wearer's** UTC offset in hours. The export contains no timezone, so this is how local reading times are reconstructed — a server running in UTC still produces correct times. |
 
 ## API
@@ -116,7 +119,8 @@ request body.
 | `unit` | `mg/dL` (default) or `mmol/L`. Values are converted from whatever the export declares. |
 | `limit` | At most this many readings, newest first. Useful for a first run. |
 | `verbose` | `1` also returns `date_iso` and `unit` per reading. Off by default — the Shortcut does not read them and it doubles the payload. |
-| `token` | Alternative to the `X-Token` header, for clients that cannot set headers easily. |
+| `token` | Alternative to the `X-Token` header, for clients that cannot set headers easily. Only needed when `CGM_TOKEN` is set. |
+| `on_error` | `empty` turns any error into `200 []`, with the reason in `X-Error`. The published shortcut sets it — see below. |
 
 Returns a JSON array, oldest first — only what the Shortcut logs:
 
@@ -158,8 +162,12 @@ readings can explain, this is where to look — not the loop.
 
 ### Units
 
-The export declares its unit in the value column header, and the service
-converts to whatever `?unit=` asks for — so the number returned always matches
+Older exports declare their unit in the value column header,
+`ค่ากลูโคส (mg/dL)`. Exports since about late September 2026 say only
+`ค่ากลูโคส`, so the unit is read off the values instead — but only when they
+leave no doubt: whole numbers with one above 35 are mg/dL (no mmol/L reading
+goes that high), decimals all at or below 35 are mmol/L, and anything else is
+refused. Either way the service converts to whatever `?unit=` asks for — so the number returned always matches
 the unit the Shortcut is configured to log.
 
 This matters because Shortcuts' **Log Health Sample** takes its unit from a
@@ -174,52 +182,50 @@ and Thai spellings of mg/dL and mmol/L are understood.
 Errors: `400` unreadable request, `401` bad token, `413` oversized,
 `422` not a CGM export.
 
+**Why the shortcut asks for `on_error=empty`.** Shortcuts does not treat a
+`4xx` as a failure. It hands the error body on, Repeat with Each walks the
+`{"error": ...}` dictionary, and Log Health Sample writes an empty value — a
+glucose of **0**, stamped with the current time, that only the wearer can
+delete. An empty array logs nothing. If a share imports nothing and you expected
+readings, the reason is in the `X-Error` response header.
+
 ### `GET /healthz`
 
 `{"ok": true}`.
 
 ## The Shortcut
 
-`shortcut/iCan to Health (template).shortcut` is ready to import. It contains a
-**placeholder URL and no token** — you point it at your own deployment.
-
-1. Open the file on the iPhone and add the shortcut.
-2. Open its **Get Contents of URL** action and replace the URL with your own:
-   `https://your-project.vercel.app/api/convert?token=YOUR_TOKEN&unit=mg/dL&since=`
-   Leave the date variable that already sits at the end of the field.
-3. Turn on *Show in Share Sheet*, accepting files.
-
-On macOS you can generate a filled-in copy instead:
+The files under [`shortcut/`](shortcut/) point at the public instance with no
+token, one per unit (see [Install](#install)). To build one for your own
+deployment on macOS:
 
 ```bash
 python3 build_shortcut.py \
   --url https://your-project.vercel.app/api/convert \
-  --token YOUR_TOKEN --unit mg/dL -o mine.shortcut
+  --unit mg/dL -o mine.shortcut          # add --token X if you set CGM_TOKEN
 shortcuts sign -m anyone -i mine.shortcut -o "iCan to Health.shortcut"
 ```
 
-Pass `--unit mmol/L` if that is what your Health app should record; the flag
-pins the URL parameter and the Log Health Sample picker together so they cannot
-disagree. `--every N` thins a big catch-up import; `--window DAYS` sets how
-far back action 1 looks for its cursor.
+`--unit` pins the URL parameter and the Log Health Sample picker together so
+they cannot disagree. `--every N` thins a big catch-up import; `--window DAYS`
+sets how far back action 1 looks for its cursor.
 
-> **Never publish a filled-in shortcut.** The token is embedded in its URL, and
-> anyone holding it can spend your deployment's quota. There is no stored data
-> to steal and no way to write to your Health, but rotate the token in Vercel
-> if one leaks.
+> **Never publish a shortcut built with `--token`.** The token is embedded in
+> its URL.
 
 ### What it does, in order
 
 1. **Find Health Samples** — Blood Glucose in the last 7 days, newest first, limit 1 → the import cursor
-2. **Get Dates from Input** → that sample's timestamp
-3. **Get Contents of URL** — POST the shared `.xls`, with the cursor as `?since=`
-4. **Get Dictionary from Input**
-5. **Repeat with Each**
-6. **Get Dictionary Value** — `value`
-7. **Get Dictionary Value** — `date_text`
-8. **Get Dates from Input**
-9. **Log Health Sample** — Blood Glucose, value ← 6, date ← 8
-10. **End Repeat**
+2. **Get Dates from Input** → that sample's Start Date
+3. **Format Date** — ISO 8601, so neither locale nor calendar can mangle it
+4. **Get Contents of URL** — POST the shared `.xls`, with the cursor as `?since=`
+5. **Get Dictionary from Input**
+6. **Repeat with Each**
+7. **Get Dictionary Value** — `value`
+8. **Get Dictionary Value** — `date_text`
+9. **Get Dates from Input**
+10. **Log Health Sample** — Blood Glucose, value ← 7, date ← 9
+11. **End Repeat**
 
 Before the first real run, check that action 1 shows **Start Date is in the
 last 7 days**, **Sort by Start Date, Latest First, Limit 1**. Without that the cursor is wrong and readings import
@@ -245,9 +251,12 @@ the full grid against `xlrd` on real files before trusting it.
 
 ## Limitations
 
-- Written against Sibionics/iCan Thai-language exports: it locates the row
-  whose first cell is `เลขที่` and parses times as `%H:%M,%m/%d/%Y`. Other
+- Written against Sibionics/iCan Thai-language exports: it locates the header
+  row by its `เวลากลูโคส` column and parses times as `%H:%M,%m/%d/%Y`. Other
   exporters will need adjusting.
+- The export has no timezone. The public instance reads it as UTC+7
+  (`CGM_TZ_OFFSET`), which is right for the Thai app; wearers elsewhere should
+  run their own copy with their own offset.
 - Blood glucose only.
 - A full day is ~480 readings and `Repeat with Each` is slow in Shortcuts, so
   import regularly rather than in one batch. `?every=N` thins a catch-up.

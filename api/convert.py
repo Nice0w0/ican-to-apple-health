@@ -28,6 +28,20 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _error(self, query, status, message):
+        # The published shortcut asks for on_error=empty. Shortcuts does not
+        # treat a 4xx/5xx as a failure: it hands the body on, Repeat with Each
+        # walks the {"error": ...} dictionary, and Log Health Sample writes an
+        # empty value -- a glucose of 0, stamped with the current time, which
+        # only the wearer can delete by hand. An empty array logs nothing.
+        # The reason still travels, in X-Error, for anyone debugging with curl.
+        if query.get("on_error") == "empty":
+            # Header values are latin-1; messages can quote Thai headers.
+            reason = ("%d %s" % (status, message)).encode(
+                "ascii", "backslashreplace").decode()
+            return self._send(200, [], {"X-Error": reason})
+        return self._send(status, {"error": message})
+
     def do_GET(self):
         self._send(200, {"ok": True})
 
@@ -44,9 +58,9 @@ class handler(BaseHTTPRequestHandler):
             readings, total, unit, source_unit, cutoff = convert(
                 body, self.headers.get("Content-Type", ""), query)
         except BadRequest as exc:
-            return self._send(exc.status, {"error": exc.message})
+            return self._error(query, exc.status, exc.message)
         except Exception as exc:                    # never leak a stack trace
-            return self._send(500, {"error": "conversion failed: %s" % exc})
+            return self._error(query, 500, "conversion failed: %s" % exc)
 
         self._send(200, readings, {
             "X-Readings-Total": str(total),
