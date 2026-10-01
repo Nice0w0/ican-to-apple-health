@@ -281,7 +281,7 @@ def main():
     ap.add_argument("--window", type=int, default=7, metavar="DAYS",
                     help="how far back action 1 looks for the import cursor; "
                          "0 searches all of Health, which gets slower forever")
-    ap.add_argument("-o", "--output", default="iCan to Health.shortcut")
+    ap.add_argument("-o", "--output", default="Sync iCan to Apple Health.shortcut")
     args = ap.parse_args()
     with open(args.output, "wb") as fh:
         plistlib.dump(build(args.url, args.token, args.unit, args.every,

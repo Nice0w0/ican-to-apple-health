@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sync iCan to Apple Health — ส่งค่าน้ำตาลจาก iCan CGM เข้าแอปสุขภาพ iPhone</title>
+<meta name="description" content="ซิงก์ค่าน้ำตาลจากเครื่อง CGM iCan (i3, i6) และ Sibionics เข้า Apple Health บน iPhone ด้วยคำสั่งลัดฟรี ไม่ต้องใช้ Android, xDrip+ หรือ Nightscout ค่าเข้าพร้อมเวลาวัดจริง ไม่ซ้ำ">
+<link rel="canonical" href="https://ican-health-sync.vercel.app/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#e5354f">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sync iCan to Apple Health">
+<meta property="og:locale" content="th_TH">
+<meta property="og:url" content="https://ican-health-sync.vercel.app/">
+<meta property="og:title" content="Sync iCan to Apple Health — ส่งค่าน้ำตาลจาก iCan เข้าแอปสุขภาพ iPhone">
+<meta property="og:description" content="คำสั่งลัดฟรีที่ส่งค่าน้ำตาลจาก CGM iCan / Sibionics เข้า Apple Health พร้อมเวลาวัดจริง แชร์ไฟล์ แตะครั้งเดียว จบ">
+<meta property="og:image" content="https://ican-health-sync.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sync iCan to Apple Health">
+<meta name="twitter:description" content="ส่งค่าน้ำตาลจาก CGM iCan / Sibionics เข้า Apple Health ด้วยคำสั่งลัดฟรี">
+<meta name="twitter:image" content="https://ican-health-sync.vercel.app/og.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e5354f'/%3E%3Cpath d='M16 7c-3 4.5-6 8-6 11.5a6 6 0 0 0 12 0C22 15 19 11.5 16 7z' fill='%23fff'/%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Sync iCan to Apple Health",
+      "alternateName": ["ican-to-apple-health", "iCan CGM to Apple Health"],
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "iOS",
+      "description": "คำสั่งลัด iOS ที่ส่งค่าน้ำตาลจากไฟล์ส่งออกของ CGM iCan / Sibionics เข้า Apple Health พร้อมเวลาวัดจริง",
+      "url": "https://ican-health-sync.vercel.app/",
+      "downloadUrl": "https://ican-health-sync.vercel.app/shortcut/mg-dL/Sync%20iCan%20to%20Apple%20Health.shortcut",
+      "inLanguage": "th",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "THB" },
+      "license": "https://opensource.org/licenses/MIT",
+      "codeRepository": "https://github.com/Nice0w0/ican-to-apple-health"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "แอป iCan เชื่อมกับ Apple Health ได้ไหม",
+          "acceptedAnswer": { "@type": "Answer", "text": "แอป iCan ไม่ได้เชื่อม Apple Health ให้เอง แต่ส่งออกข้อมูลเป็นไฟล์ .xls ได้ คำสั่งลัด Sync iCan to Apple Health อ่านไฟล์นั้นแล้วบันทึกค่าน้ำตาลลงแอปสุขภาพของ iPhone พร้อมเวลาวัดจริง" }
+        },
+        {
+          "@type": "Question",
+          "name": "ต้องใช้ Android, xDrip+ หรือ Nightscout ไหม",
+          "acceptedAnswer": { "@type": "Answer", "text": "ไม่ต้อง ใช้แค่ iPhone แอป iCan และแอปคำสั่งลัดที่มีมากับ iOS อยู่แล้ว" }
+        },
+        {
+          "@type": "Question",
+          "name": "ใช้กับ iCan i3, i6 และ Sibionics ได้ไหม",
+          "acceptedAnswer": { "@type": "Answer", "text": "ได้ ใช้กับไฟล์ส่งออกจากแอป iCan ภาษาไทย ทั้งรูปแบบเดิมและรูปแบบใหม่หลังอัปเดตเดือนกันยายน 2026" }
+        },
+        {
+          "@type": "Question",
+          "name": "ค่าจะซ้ำไหมถ้าซิงก์หลายครั้ง",
+          "acceptedAnswer": { "@type": "Answer", "text": "ไม่ซ้ำ คำสั่งลัดถามแอปสุขภาพก่อนว่าค่าล่าสุดที่มีคือเวลาไหน แล้วนำเข้าเฉพาะค่าที่ใหม่กว่า" }
+        },
+        {
+          "@type": "Question",
+          "name": "ข้อมูลน้ำตาลของฉันถูกเก็บไว้ที่ไหน",
+          "acceptedAnswer": { "@type": "Answer", "text": "ไฟล์ถูกส่งไปแปลงที่ server แล้วส่งค่ากลับมาทันที server ไม่มีฐานข้อมูลและไม่เก็บค่าน้ำตาลไว้ ค่าถูกบันทึกในแอปสุขภาพบน iPhone ของคุณเท่านั้น" }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #fff; --text: #16181d; --muted: #5d6573;
+    --line: #e2e5ea; --accent: #e5354f; --accent-text: #fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101114; --card: #1a1c21; --text: #eceef2; --muted: #9aa1ad;
+      --line: #2c2f36; --accent: #ff4d67; --accent-text: #fff;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #101114; --card: #1a1c21; --text: #eceef2; --muted: #9aa1ad;
+    --line: #2c2f36; --accent: #ff4d67; --accent-text: #fff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Sukhumvit Set", "Noto Sans Thai", sans-serif;
+  }
+  main { max-width: 600px; margin: 0 auto; padding: 32px 16px 48px; }
+  header { margin-bottom: 24px; }
+  .eyebrow { color: var(--accent); font-weight: 600; font-size: 14px; margin: 0 0 6px; }
+  h1 { font-size: 28px; line-height: 1.3; margin: 0 0 10px; }
+  h2 { font-size: 19px; margin: 0 0 12px; }
+  h3 { font-size: 16px; margin: 16px 0 4px; }
+  p { margin: 0 0 12px; }
+  .lead { color: var(--muted); }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px; margin-bottom: 16px;
+  }
+  .btn {
+    display: block; text-align: center; text-decoration: none;
+    background: var(--accent); color: var(--accent-text); border-radius: 12px;
+    padding: 14px 16px; font-weight: 600; margin-top: 10px;
+  }
+  .btn small { display: block; font-weight: 400; opacity: .9; font-size: 13px; }
+  .btn.secondary { background: transparent; color: var(--text); border: 1px solid var(--line); }
+  .muted { color: var(--muted); font-size: 14px; }
+  ol { padding-left: 22px; margin: 0; }
+  li { margin-bottom: 8px; }
+  a { color: var(--accent); }
+  footer { text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">Sync iCan to Apple Health</p>
+    <h1>ซิงก์ค่าน้ำตาลจาก iCan เข้า Apple Health</h1>
+    <p class="lead">ส่งค่าน้ำตาลจากเครื่อง CGM iCan (i3, i6) และ Sibionics เข้าแอปสุขภาพบน iPhone
+      ด้วยคำสั่งลัดฟรี ค่าเข้าพร้อมเวลาวัดจริง ไม่ซ้ำ ไม่ต้องใช้ Android, xDrip+ หรือ Nightscout</p>
+  </header>
+
+  <section class="card" id="download">
+    <h2>ดาวน์โหลดคำสั่งลัด</h2>
+    <p class="muted">เปิดหน้านี้บน iPhone เลือกหน่วยที่อยากให้แอปสุขภาพบันทึก แล้วเปิดไฟล์ที่ดาวน์โหลดเพื่อเพิ่มคำสั่งลัด</p>
+    <a class="btn" href="/shortcut/mg-dL/Sync%20iCan%20to%20Apple%20Health.shortcut" download>
+      ดาวน์โหลด (mg/dL)<small>ผู้ใช้ส่วนใหญ่ในไทยใช้หน่วยนี้</small></a>
+    <a class="btn secondary" href="/shortcut/mmol-L/Sync%20iCan%20to%20Apple%20Health.shortcut" download>
+      ดาวน์โหลด (mmol/L)</a>
+  </section>
+
+  <section class="card">
+    <h2>วิธีใช้</h2>
+    <ol>
+      <li>ในแอป iCan กดส่งออก / แชร์ข้อมูล จะได้ไฟล์ <strong>.xls</strong></li>
+      <li>ในเมนูแชร์ เลือก <strong>Sync iCan to Apple Health</strong></li>
+      <li>ครั้งแรกระบบจะขอสิทธิ์เข้าถึงแอปสุขภาพ ให้กดอนุญาต</li>
+      <li>รอจนเสร็จ ค่าน้ำตาลจะอยู่ในแอปสุขภาพ → น้ำตาลในเลือด</li>
+    </ol>
+    <p class="muted" style="margin-top:12px">ครั้งแรกจะนำเข้าทั้งไฟล์ อาจใช้เวลาหลายนาทีถ้ามีค่าหลายร้อยค่า
+      ครั้งต่อไปจะนำเข้าเฉพาะค่าที่ใหม่กว่าค่าล่าสุดในแอปสุขภาพ</p>
+  </section>
+
+  <section class="card">
+    <h2>คำถามที่พบบ่อย</h2>
+    <h3>แอป iCan เชื่อมกับ Apple Health ได้ไหม</h3>
+    <p>แอป iCan ไม่ได้เชื่อม Apple Health ให้เอง แต่ส่งออกข้อมูลเป็นไฟล์ .xls ได้
+      คำสั่งลัดนี้อ่านไฟล์นั้นแล้วบันทึกค่าน้ำตาลลงแอปสุขภาพพร้อมเวลาวัดจริง</p>
+    <h3>ต้องใช้ Android, xDrip+ หรือ Nightscout ไหม</h3>
+    <p>ไม่ต้อง ใช้แค่ iPhone แอป iCan และแอปคำสั่งลัดที่มีมากับ iOS อยู่แล้ว</p>
+    <h3>ใช้กับ iCan i3, i6 และ Sibionics ได้ไหม</h3>
+    <p>ได้ ใช้กับไฟล์ส่งออกจากแอป iCan ภาษาไทย ทั้งรูปแบบเดิมและรูปแบบใหม่หลังอัปเดตเดือนกันยายน 2026</p>
+    <h3>ค่าจะซ้ำไหมถ้าซิงก์หลายครั้ง</h3>
+    <p>ไม่ซ้ำ คำสั่งลัดถามแอปสุขภาพก่อนว่าค่าล่าสุดที่มีคือเวลาไหน แล้วนำเข้าเฉพาะค่าที่ใหม่กว่า</p>
+    <h3>ข้อมูลน้ำตาลของฉันถูกเก็บไว้ที่ไหน</h3>
+    <p>ไฟล์ถูกส่งไปแปลงที่ server แล้วส่งค่ากลับมาทันที server ไม่มีฐานข้อมูลและไม่เก็บค่าน้ำตาลไว้
+      ค่าถูกบันทึกในแอปสุขภาพบน iPhone ของคุณเท่านั้น</p>
+  </section>
+
+  <section class="card" lang="en">
+    <h2>In English</h2>
+    <p>Sync iCan / Sibionics CGM readings into Apple Health with a free iOS Shortcut. Share the
+      <code>.xls</code> export from the iCan app, pick the shortcut, and readings land in Health with
+      their real measurement times. No Android, xDrip+, Nightscout or Xcode needed.
+      Download above — mg/dL or mmol/L.</p>
+  </section>
+
+  <footer class="muted">
+    โอเพนซอร์ส MIT ·
+    <a href="https://github.com/Nice0w0/ican-to-apple-health">github.com/Nice0w0/ican-to-apple-health</a>
+  </footer>
+</main>
+</body>
+</html>

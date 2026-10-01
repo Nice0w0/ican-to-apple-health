@@ -1,10 +1,16 @@
-# ican-health-sync
+# Sync iCan to Apple Health
 
-Turn a Sibionics / iCan CGM `.xls` export into JSON that an Apple Shortcut can
-write straight into Apple Health.
+Sync iCan (i3, i6) and Sibionics CGM glucose readings into Apple Health on
+iPhone, with a free iOS Shortcut. Share the `.xls` export from the iCan app,
+pick the shortcut, done. Readings land in Health with their real measurement
+times — no Android, xDrip+, Nightscout or Xcode.
 
-Share the export from the CGM app, tap the Shortcut, done. Readings land in
-Health with their real measurement times.
+**Download: <https://ican-health-sync.vercel.app>**
+
+> **ภาษาไทย:** ซิงก์ค่าน้ำตาลจากเครื่อง CGM iCan (i3, i6) และ Sibionics เข้า
+> แอปสุขภาพ (Apple Health) บน iPhone ด้วยคำสั่งลัดฟรี แชร์ไฟล์ .xls จากแอป iCan
+> แล้วเลือกคำสั่งลัด ค่าเข้าพร้อมเวลาวัดจริงและไม่ซ้ำ ไม่ต้องใช้ Android, xDrip+
+> หรือ Nightscout — ดาวน์โหลดที่ <https://ican-health-sync.vercel.app>
 
 ## "I read that this is impossible"
 
@@ -28,15 +34,14 @@ their real measurement times, not the import time.
 
 ## Install
 
-On the iPhone, download the shortcut for the unit your Health app should
-record, open it from Downloads, and add it:
+On the iPhone, open <https://ican-health-sync.vercel.app>, download the
+shortcut for the unit your Health app should record, open it from Downloads,
+and add it:
 
-- **mg/dL** (most Thai users): [iCan-to-Health-mg-dL.shortcut](https://github.com/Nice0w0/ican-health-sync/releases/latest/download/iCan-to-Health-mg-dL.shortcut)
-- **mmol/L**: [iCan-to-Health-mmol-L.shortcut](https://github.com/Nice0w0/ican-health-sync/releases/latest/download/iCan-to-Health-mmol-L.shortcut)
+- **mg/dL** (most Thai users): [Sync iCan to Apple Health.shortcut](https://ican-health-sync.vercel.app/shortcut/mg-dL/Sync%20iCan%20to%20Apple%20Health.shortcut)
+- **mmol/L**: [Sync iCan to Apple Health.shortcut](https://ican-health-sync.vercel.app/shortcut/mmol-L/Sync%20iCan%20to%20Apple%20Health.shortcut)
 
-These always fetch the [latest release](https://github.com/Nice0w0/ican-health-sync/releases/latest).
-Shortcuts names it after the file; rename it to anything you like. Then in the
-iCan app share / export → pick the shortcut. The first run
+Then in the iCan app share / export → **Sync iCan to Apple Health**. The first run
 asks for Health access. No account, no token, nothing to configure.
 
 With no Blood Glucose in Health from the last 7 days, the first run imports the
@@ -68,7 +73,7 @@ Sample` only ever appends — so this filtering has to happen before logging.
 
 ### Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Nice0w0/ican-health-sync)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Nice0w0/ican-to-apple-health)
 
 Click, connect your GitHub account, done. You get an HTTPS URL like
 `https://your-project.vercel.app`, and your endpoint is
@@ -80,7 +85,7 @@ not in UTC+7, and `CGM_TOKEN` if only you should be able to use it.
 No dependencies at all, so plain Python works:
 
 ```bash
-git clone https://github.com/Nice0w0/ican-health-sync.git && cd ican-health-sync
+git clone https://github.com/Nice0w0/ican-to-apple-health.git && cd ican-to-apple-health
 python3 server.py        # http://127.0.0.1:8000/api/convert
 ```
 
@@ -197,7 +202,7 @@ readings, the reason is in the `X-Error` response header.
 
 ## The Shortcut
 
-The files under [`shortcut/`](shortcut/) point at the public instance with no
+The files under [`public/shortcut/`](public/shortcut/) point at the public instance with no
 token, one per unit (see [Install](#install)). To build one for your own
 deployment on macOS:
 
@@ -205,7 +210,7 @@ deployment on macOS:
 python3 build_shortcut.py \
   --url https://your-project.vercel.app/api/convert \
   --unit mg/dL -o mine.shortcut          # add --token X if you set CGM_TOKEN
-shortcuts sign -m anyone -i mine.shortcut -o "iCan to Health.shortcut"
+shortcuts sign -m anyone -i mine.shortcut -o "Sync iCan to Apple Health.shortcut"
 ```
 
 `--unit` pins the URL parameter and the Log Health Sample picker together so

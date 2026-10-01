@@ -1,4 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [{ "source": "/convert", "destination": "/api/convert" }]
+  "outputDirectory": "public",
+  "rewrites": [{ "source": "/convert", "destination": "/api/convert" }],
+  "headers": [
+    {
+      "source": "/shortcut/(.*)",
+      "headers": [{ "key": "Content-Disposition", "value": "attachment" }]
+    }
+  ]
 }
