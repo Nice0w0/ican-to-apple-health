@@ -28,13 +28,15 @@ their real measurement times, not the import time.
 
 ## Install
 
-Download the shortcut for the unit your Health app should record — on the
-iPhone, open the link, then **Download raw file** and open it:
+On the iPhone, download the shortcut for the unit your Health app should
+record, open it from Downloads, and add it:
 
-- **mg/dL** (most Thai users): [`shortcut/mg-dL/iCan to Health.shortcut`](shortcut/mg-dL/iCan%20to%20Health.shortcut)
-- **mmol/L**: [`shortcut/mmol-L/iCan to Health.shortcut`](shortcut/mmol-L/iCan%20to%20Health.shortcut)
+- **mg/dL** (most Thai users): [iCan-to-Health-mg-dL.shortcut](https://github.com/Nice0w0/ican-health-sync/releases/latest/download/iCan-to-Health-mg-dL.shortcut)
+- **mmol/L**: [iCan-to-Health-mmol-L.shortcut](https://github.com/Nice0w0/ican-health-sync/releases/latest/download/iCan-to-Health-mmol-L.shortcut)
 
-Add it, then in the iCan app share / export → **iCan to Health**. The first run
+These always fetch the [latest release](https://github.com/Nice0w0/ican-health-sync/releases/latest).
+Shortcuts names it after the file; rename it to anything you like. Then in the
+iCan app share / export → pick the shortcut. The first run
 asks for Health access. No account, no token, nothing to configure.
 
 With no Blood Glucose in Health from the last 7 days, the first run imports the
