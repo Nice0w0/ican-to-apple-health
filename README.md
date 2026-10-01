@@ -7,6 +7,9 @@ measurement times, and syncing again never duplicates them.
 
 No Android, xDrip+, Juggluco, Nightscout or Xcode.
 
+Tested end to end on an iPhone with exports from the Thai-language iCan app,
+including the format it switched to in September 2026.
+
 ### **[Download → ican-health-sync.vercel.app](https://ican-health-sync.vercel.app)**
 
 [ภาษาไทย](#ภาษาไทย) · [English](#english) · [How it works](#how-it-works) ·
@@ -18,6 +21,7 @@ No Android, xDrip+, Juggluco, Nightscout or Xcode.
 
 ซิงก์ค่าน้ำตาลจากเครื่องวัดน้ำตาลต่อเนื่อง (CGM) iCan i3, i6 และ Sibionics
 เข้าแอปสุขภาพบน iPhone ด้วยคำสั่งลัดฟรี ค่าเข้าพร้อมเวลาวัดจริง และไม่ซ้ำ
+ทดสอบบน iPhone จริงแล้ว ทั้งไฟล์จากแอป iCan แบบเดิมและแบบใหม่หลังอัปเดตเดือนกันยายน 2026
 
 ### ติดตั้ง
 
