@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sync iCan CGM to Apple Health on iPhone — free Shortcut</title>
+<meta name="description" content="Get iCan (i3, i6) and Sibionics / Sinocare CGM glucose readings into Apple Health on iPhone with a free iOS Shortcut. Real measurement times, no duplicates. No Android, xDrip+, Nightscout or Xcode.">
+<link rel="canonical" href="https://ican-health-sync.vercel.app/en/">
+<link rel="alternate" hreflang="th" href="https://ican-health-sync.vercel.app/">
+<link rel="alternate" hreflang="en" href="https://ican-health-sync.vercel.app/en/">
+<link rel="alternate" hreflang="x-default" href="https://ican-health-sync.vercel.app/en/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#e5354f">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sync iCan to Apple Health">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="th_TH">
+<meta property="og:url" content="https://ican-health-sync.vercel.app/en/">
+<meta property="og:title" content="Sync iCan CGM to Apple Health on iPhone">
+<meta property="og:description" content="A free iOS Shortcut that puts iCan / Sibionics CGM readings into Apple Health with their real measurement times. Share the export, tap once.">
+<meta property="og:image" content="https://ican-health-sync.vercel.app/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sync iCan CGM to Apple Health">
+<meta name="twitter:description" content="A free iOS Shortcut that puts iCan / Sibionics CGM readings into Apple Health.">
+<meta name="twitter:image" content="https://ican-health-sync.vercel.app/og-en.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e5354f'/%3E%3Cpath d='M16 7c-3 4.5-6 8-6 11.5a6 6 0 0 0 12 0C22 15 19 11.5 16 7z' fill='%23fff'/%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Sync iCan to Apple Health",
+      "alternateName": ["ican-to-apple-health", "iCan CGM to Apple Health"],
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "iOS",
+      "description": "A free iOS Shortcut that imports iCan / Sibionics / Sinocare CGM glucose exports into Apple Health with their real measurement times.",
+      "url": "https://ican-health-sync.vercel.app/en/",
+      "downloadUrl": "https://ican-health-sync.vercel.app/shortcut/mg-dL/Sync%20iCan%20to%20Apple%20Health.shortcut",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "license": "https://opensource.org/licenses/MIT",
+      "codeRepository": "https://github.com/Nice0w0/ican-to-apple-health"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does the iCan CGM app sync with Apple Health?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Not by itself, but it can export your readings as an .xls file. The free Sync iCan to Apple Health shortcut reads that file and logs each reading into Apple Health with its real measurement time." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need Android, xDrip+, Juggluco or Nightscout?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. You need an iPhone, the iCan app and Apple's built-in Shortcuts app. Nothing else." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work with iCan i3, i6 and Sibionics?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, with exports from the Thai-language iCan app, in both the original format and the one introduced in its September 2026 update." }
+        },
+        {
+          "@type": "Question",
+          "name": "Will syncing again create duplicate readings?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The shortcut first asks Apple Health for its newest glucose reading and only imports readings taken after it." }
+        },
+        {
+          "@type": "Question",
+          "name": "Where is my glucose data stored?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Only in Apple Health on your iPhone. The export is sent to a converter that returns the readings and keeps nothing: no database, no accounts." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #fff; --text: #16181d; --muted: #5d6573;
+    --line: #e2e5ea; --accent: #e5354f; --accent-text: #fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101114; --card: #1a1c21; --text: #eceef2; --muted: #9aa1ad;
+      --line: #2c2f36; --accent: #ff4d67; --accent-text: #fff;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #101114; --card: #1a1c21; --text: #eceef2; --muted: #9aa1ad;
+    --line: #2c2f36; --accent: #ff4d67; --accent-text: #fff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  main { max-width: 600px; margin: 0 auto; padding: 32px 16px 48px; }
+  header { margin-bottom: 24px; }
+  .eyebrow { color: var(--accent); font-weight: 600; font-size: 14px; margin: 0 0 6px; }
+  .lang { float: right; font-size: 14px; }
+  h1 { font-size: 28px; line-height: 1.3; margin: 0 0 10px; }
+  h2 { font-size: 19px; margin: 0 0 12px; }
+  h3 { font-size: 16px; margin: 16px 0 4px; }
+  p { margin: 0 0 12px; }
+  .lead { color: var(--muted); }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px; margin-bottom: 16px;
+  }
+  .btn {
+    display: block; text-align: center; text-decoration: none;
+    background: var(--accent); color: var(--accent-text); border-radius: 12px;
+    padding: 14px 16px; font-weight: 600; margin-top: 10px;
+  }
+  .btn small { display: block; font-weight: 400; opacity: .9; font-size: 13px; }
+  .btn.secondary { background: transparent; color: var(--text); border: 1px solid var(--line); }
+  .muted { color: var(--muted); font-size: 14px; }
+  ol { padding-left: 22px; margin: 0; }
+  li { margin-bottom: 8px; }
+  a { color: var(--accent); }
+  footer { text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <a class="lang" href="/" hreflang="th" lang="th">ภาษาไทย</a>
+    <p class="eyebrow">Sync iCan to Apple Health</p>
+    <h1>Sync iCan CGM to Apple Health on iPhone</h1>
+    <p class="lead">A free iOS Shortcut that puts glucose readings from iCan (i3, i6) and
+      Sibionics / Sinocare continuous glucose monitors into Apple Health, with their real
+      measurement times and no duplicates. No Android, xDrip+, Juggluco, Nightscout or Xcode.</p>
+  </header>
+
+  <section class="card" id="download">
+    <h2>Download the shortcut</h2>
+    <p class="muted">Open this page on your iPhone, pick the unit Apple Health should record, then open
+      the downloaded file to add the shortcut.</p>
+    <a class="btn" href="/shortcut/mg-dL/Sync%20iCan%20to%20Apple%20Health.shortcut" download>
+      Download (mg/dL)</a>
+    <a class="btn secondary" href="/shortcut/mmol-L/Sync%20iCan%20to%20Apple%20Health.shortcut" download>
+      Download (mmol/L)</a>
+  </section>
+
+  <section class="card">
+    <h2>How to use it</h2>
+    <ol>
+      <li>In the iCan app, export / share your data. You get an <strong>.xls</strong> file.</li>
+      <li>In the share sheet, pick <strong>Sync iCan to Apple Health</strong>.</li>
+      <li>The first time, allow access to Apple Health.</li>
+      <li>Wait for it to finish. Readings appear in Health → Blood Glucose.</li>
+    </ol>
+    <p class="muted" style="margin-top:12px">The first run imports the whole export, which can take a few
+      minutes for hundreds of readings. After that only readings newer than the latest one in Health come in.</p>
+  </section>
+
+  <section class="card">
+    <h2>“I read that this is impossible”</h2>
+    <p>Forum answers often say the iCan app has no HealthKit support and no export, and that the only
+      route is an Android phone running xDrip+ or Juggluco feeding Nightscout, plus a native iOS app.</p>
+    <p>That is out of date. The iCan app's share button exports an <code>.xls</code> file, and Apple's own
+      Shortcuts app can write to Apple Health. The one missing piece was reading that <code>.xls</code>,
+      and that is what this shortcut does.</p>
+  </section>
+
+  <section class="card">
+    <h2>FAQ</h2>
+    <h3>Does the iCan CGM app sync with Apple Health?</h3>
+    <p>Not by itself, but it can export your readings as an .xls file. This shortcut reads that file and
+      logs each reading into Apple Health with its real measurement time.</p>
+    <h3>Do I need Android, xDrip+, Juggluco or Nightscout?</h3>
+    <p>No. You need an iPhone, the iCan app and Apple's built-in Shortcuts app.</p>
+    <h3>Does it work with iCan i3, i6 and Sibionics?</h3>
+    <p>Yes, with exports from the Thai-language iCan app, in both the original format and the one
+      introduced in its September 2026 update.</p>
+    <h3>Will syncing again create duplicate readings?</h3>
+    <p>No. The shortcut asks Apple Health for its newest glucose reading first and only imports
+      readings taken after it.</p>
+    <h3>Where is my glucose data stored?</h3>
+    <p>Only in Apple Health on your iPhone. The export is sent to a converter that returns the readings
+      and keeps nothing: no database, no accounts.</p>
+  </section>
+
+  <footer class="muted">
+    Open source, MIT ·
+    <a href="https://github.com/Nice0w0/ican-to-apple-health">github.com/Nice0w0/ican-to-apple-health</a>
+  </footer>
+</main>
+</body>
+</html>

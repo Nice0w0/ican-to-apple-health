@@ -4,14 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sync iCan to Apple Health — ส่งค่าน้ำตาลจาก iCan CGM เข้าแอปสุขภาพ iPhone</title>
-<meta name="description" content="ซิงก์ค่าน้ำตาลจากเครื่อง CGM iCan (i3, i6) และ Sibionics เข้า Apple Health บน iPhone ด้วยคำสั่งลัดฟรี ไม่ต้องใช้ Android, xDrip+ หรือ Nightscout ค่าเข้าพร้อมเวลาวัดจริง ไม่ซ้ำ">
+<meta name="description" content="ซิงก์ค่าน้ำตาลจากเครื่องวัดน้ำตาลต่อเนื่อง (CGM) iCan i3, i6 ของ Sinocare และ Sibionics เข้า Apple Health (แอปสุขภาพ) บน iPhone ด้วยคำสั่งลัดฟรี ค่าเข้าพร้อมเวลาวัดจริง ไม่ซ้ำ ไม่ต้องใช้ Android, xDrip+ หรือ Nightscout">
 <link rel="canonical" href="https://ican-health-sync.vercel.app/">
+<link rel="alternate" hreflang="th" href="https://ican-health-sync.vercel.app/">
+<link rel="alternate" hreflang="en" href="https://ican-health-sync.vercel.app/en/">
+<link rel="alternate" hreflang="x-default" href="https://ican-health-sync.vercel.app/en/">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#e5354f">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sync iCan to Apple Health">
 <meta property="og:locale" content="th_TH">
+<meta property="og:locale:alternate" content="en_US">
 <meta property="og:url" content="https://ican-health-sync.vercel.app/">
 <meta property="og:title" content="Sync iCan to Apple Health — ส่งค่าน้ำตาลจาก iCan เข้าแอปสุขภาพ iPhone">
 <meta property="og:description" content="คำสั่งลัดฟรีที่ส่งค่าน้ำตาลจาก CGM iCan / Sibionics เข้า Apple Health พร้อมเวลาวัดจริง แชร์ไฟล์ แตะครั้งเดียว จบ">
@@ -100,6 +104,7 @@
   }
   main { max-width: 600px; margin: 0 auto; padding: 32px 16px 48px; }
   header { margin-bottom: 24px; }
+  .lang { float: right; font-size: 14px; }
   .eyebrow { color: var(--accent); font-weight: 600; font-size: 14px; margin: 0 0 6px; }
   h1 { font-size: 28px; line-height: 1.3; margin: 0 0 10px; }
   h2 { font-size: 19px; margin: 0 0 12px; }
@@ -127,10 +132,12 @@
 <body>
 <main>
   <header>
+    <a class="lang" href="/en/" hreflang="en" lang="en">English</a>
     <p class="eyebrow">Sync iCan to Apple Health</p>
     <h1>ซิงก์ค่าน้ำตาลจาก iCan เข้า Apple Health</h1>
-    <p class="lead">ส่งค่าน้ำตาลจากเครื่อง CGM iCan (i3, i6) และ Sibionics เข้าแอปสุขภาพบน iPhone
-      ด้วยคำสั่งลัดฟรี ค่าเข้าพร้อมเวลาวัดจริง ไม่ซ้ำ ไม่ต้องใช้ Android, xDrip+ หรือ Nightscout</p>
+    <p class="lead">ส่งค่าน้ำตาลจากเครื่องวัดน้ำตาลต่อเนื่อง (CGM) iCan i3, i6 ของ Sinocare และ Sibionics
+      เข้าแอปสุขภาพบน iPhone ด้วยคำสั่งลัดฟรี ค่าเข้าพร้อมเวลาวัดจริง ไม่ซ้ำ ไม่ต้องใช้ Android, xDrip+
+      หรือ Nightscout</p>
   </header>
 
   <section class="card" id="download">
@@ -170,12 +177,13 @@
       ค่าถูกบันทึกในแอปสุขภาพบน iPhone ของคุณเท่านั้น</p>
   </section>
 
-  <section class="card" lang="en">
-    <h2>In English</h2>
-    <p>Sync iCan / Sibionics CGM readings into Apple Health with a free iOS Shortcut. Share the
-      <code>.xls</code> export from the iCan app, pick the shortcut, and readings land in Health with
-      their real measurement times. No Android, xDrip+, Nightscout or Xcode needed.
-      Download above — mg/dL or mmol/L.</p>
+  <section class="card">
+    <h2>“อ่านมาว่าทำไม่ได้”</h2>
+    <p>หลายกระทู้บอกว่าแอป iCan ไม่รองรับ Apple Health และส่งออกข้อมูลไม่ได้ ต้องใช้มือถือ Android
+      ลง xDrip+ หรือ Juggluco ส่งต่อไป Nightscout แล้วเขียนแอป iOS เองเท่านั้น</p>
+    <p>ข้อมูลนั้นเก่าแล้ว ปุ่มแชร์ในแอป iCan ส่งออกเป็นไฟล์ <code>.xls</code> ได้ และแอปคำสั่งลัดของ Apple
+      เองก็เขียนข้อมูลลง Apple Health ได้ สิ่งเดียวที่ขาดคือการอ่านไฟล์ <code>.xls</code>
+      ซึ่งคำสั่งลัดนี้ทำให้</p>
   </section>
 
   <footer class="muted">
