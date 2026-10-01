@@ -1,272 +1,290 @@
 # Sync iCan to Apple Health
 
-Sync iCan (i3, i6) and Sibionics CGM glucose readings into Apple Health on
-iPhone, with a free iOS Shortcut. Share the `.xls` export from the iCan app,
-pick the shortcut, done. Readings land in Health with their real measurement
-times — no Android, xDrip+, Nightscout or Xcode.
+Get glucose readings from an **iCan (i3, i6)** or **Sibionics / Sinocare** CGM
+into **Apple Health** on iPhone, with a free iOS Shortcut. Share the export from
+the iCan app, pick the shortcut, done — readings land in Health with their real
+measurement times, and syncing again never duplicates them.
 
-**Download: <https://ican-health-sync.vercel.app>**
+No Android, xDrip+, Juggluco, Nightscout or Xcode.
 
-> **ภาษาไทย:** ซิงก์ค่าน้ำตาลจากเครื่อง CGM iCan (i3, i6) และ Sibionics เข้า
-> แอปสุขภาพ (Apple Health) บน iPhone ด้วยคำสั่งลัดฟรี แชร์ไฟล์ .xls จากแอป iCan
-> แล้วเลือกคำสั่งลัด ค่าเข้าพร้อมเวลาวัดจริงและไม่ซ้ำ ไม่ต้องใช้ Android, xDrip+
-> หรือ Nightscout — ดาวน์โหลดที่ <https://ican-health-sync.vercel.app>
+### **[Download → ican-health-sync.vercel.app](https://ican-health-sync.vercel.app)**
 
-## "I read that this is impossible"
+[ภาษาไทย](#ภาษาไทย) · [English](#english) · [How it works](#how-it-works) ·
+[Troubleshooting](#troubleshooting) · [For developers](#for-developers)
 
-Search results and forum answers commonly say the iCan / Sinocare CGM app has
-no HealthKit support and no export, and that the only route is an Android phone
-running xDrip+ or Juggluco feeding Nightscout, plus a native iOS app to write
-HealthKit.
+---
 
-That is out of date, at least for the Thai-language iCan app on i3/i6:
+## ภาษาไทย
 
-- **The app does export.** Its share button hands over an `.xls` file.
-- **You do not need Android, xDrip+, Nightscout, or Xcode.**
-- **You do not need to write a native app.** Apple's own Shortcuts app is
-  native and can write HealthKit — `Log Health Sample` is a built-in action.
+ซิงก์ค่าน้ำตาลจากเครื่องวัดน้ำตาลต่อเนื่อง (CGM) iCan i3, i6 และ Sibionics
+เข้าแอปสุขภาพบน iPhone ด้วยคำสั่งลัดฟรี ค่าเข้าพร้อมเวลาวัดจริง และไม่ซ้ำ
 
-The only genuinely missing piece is that Shortcuts cannot read `.xls`. That is
-the single gap this project fills. Everything else is stock iOS.
+### ติดตั้ง
 
-Built and verified end to end on an iPhone: readings land in Apple Health with
-their real measurement times, not the import time.
+1. เปิด **<https://ican-health-sync.vercel.app>** บน iPhone
+2. กดดาวน์โหลดตามหน่วยที่ต้องการให้แอปสุขภาพบันทึก (คนไทยส่วนใหญ่ใช้ **mg/dL**)
+3. เปิดไฟล์ที่ดาวน์โหลด แล้วกด **เพิ่มคำสั่งลัด**
 
-## Install
+ไม่ต้องสมัคร ไม่ต้องตั้งค่าอะไร
 
-On the iPhone, open <https://ican-health-sync.vercel.app>, download the
-shortcut for the unit your Health app should record, open it from Downloads,
-and add it:
+### วิธีใช้
 
-- **mg/dL** (most Thai users): [Sync iCan to Apple Health.shortcut](https://ican-health-sync.vercel.app/shortcut/mg-dL/Sync%20iCan%20to%20Apple%20Health.shortcut)
-- **mmol/L**: [Sync iCan to Apple Health.shortcut](https://ican-health-sync.vercel.app/shortcut/mmol-L/Sync%20iCan%20to%20Apple%20Health.shortcut)
+1. ในแอป iCan กดส่งออก / แชร์ข้อมูล จะได้ไฟล์ `.xls`
+2. ในเมนูแชร์ เลือก **Sync iCan to Apple Health**
+3. ครั้งแรกระบบจะขอสิทธิ์เข้าถึงแอปสุขภาพ ให้กดอนุญาต
+4. รอจนเสร็จ ค่าจะอยู่ในแอปสุขภาพ → น้ำตาลในเลือด
 
-Then in the iCan app share / export → **Sync iCan to Apple Health**. The first run
-asks for Health access. No account, no token, nothing to configure.
+ครั้งแรกจะนำเข้าทั้งไฟล์ ถ้ามีหลายร้อยค่าอาจใช้เวลาหลายนาที
+ครั้งต่อไปจะนำเข้าเฉพาะค่าที่ใหม่กว่าค่าล่าสุดในแอปสุขภาพ
 
-With no Blood Glucose in Health from the last 7 days, the first run imports the
-whole export, which can take a few minutes. After that only readings newer than
-the latest one in Health come in.
+### ถ้ามีปัญหา
 
-## Why this exists
+- **กดแล้วไม่มีค่าใหม่เข้า** — ถ้าแอปสุขภาพมีค่าล่าสุดอยู่แล้ว ถือว่าปกติ
+  แต่ถ้าไม่ใช่ แปลว่าอ่านไฟล์ไม่ได้ ให้[เปิด issue](https://github.com/Nice0w0/ican-to-apple-health/issues)
+  พร้อมบอกรุ่นเครื่องและภาษาของแอป iCan
+- **มีค่า 0 ในแอปสุขภาพ** — เกิดจากคำสั่งลัดเวอร์ชันก่อนตุลาคม 2026 ให้ลบคำสั่งลัดเก่า
+  ติดตั้งใหม่จากเว็บ แล้วลบค่า 0 เอง (แอปสุขภาพ → น้ำตาลในเลือด → แสดงข้อมูลทั้งหมด → ปัดลบ)
+- **ค่าซ้ำกัน** — เช็คว่าใช้คำสั่งลัดตัวเดียว และไม่ได้แก้ action แรกของคำสั่งลัด
 
-Apple Health can only be written from iOS, and the Shortcuts app cannot read
-`.xls` — the export is a real OLE2/BIFF8 binary, not a spreadsheet Shortcuts
-understands. Something has to do the conversion. This is that something: a
-small HTTP endpoint at `https://ican-health-sync.vercel.app/api/convert`, which
-the shortcut calls.
+### ข้อมูลของคุณ
 
-## What happens to your data
+ไฟล์ถูกส่งไปแปลงที่ server บน Vercel แล้วส่งค่ากลับมาทันที server ไม่มีฐานข้อมูล
+ไม่มีบัญชีผู้ใช้ และไม่เก็บค่าน้ำตาลไว้ ค่าถูกบันทึกในแอปสุขภาพบน iPhone ของคุณเท่านั้น
+ถ้าไม่อยากให้ไฟล์ผ่าน server ของคนอื่นเลย รันของตัวเองได้ ดู[สำหรับนักพัฒนา](#for-developers)
 
-The shortcut sends your export to that endpoint, which runs on Vercel. It
-parses the upload, returns the readings, and forgets: no database, no
-accounts, and the code logs no readings. The export does pass through the
-server, though — if you would rather it never left your own machine, run your
-own copy (below) and point the shortcut at it.
+---
 
-De-duplication is handled by **Apple Health itself**: the Shortcut asks Health
-for its newest Blood Glucose sample and sends that timestamp as `?since=`, so
-only genuinely new readings come back. HealthKit has no upsert — `Log Health
-Sample` only ever appends — so this filtering has to happen before logging.
+## English
 
-## Run your own copy (optional)
+### Install
 
-### Vercel
+1. Open **<https://ican-health-sync.vercel.app/en/>** on your iPhone.
+2. Download the version for the unit Apple Health should record: **mg/dL** or
+   **mmol/L**.
+3. Open the downloaded file and tap **Add Shortcut**.
 
+No account, no token, nothing to configure.
+
+### Use
+
+1. In the iCan app, export / share your data. You get an `.xls` file.
+2. In the share sheet, pick **Sync iCan to Apple Health**.
+3. The first time, allow access to Apple Health.
+4. Readings appear in Health → Blood Glucose.
+
+The first run imports the whole export, which takes a few minutes for hundreds
+of readings. After that, only readings newer than the latest one in Health come
+in.
+
+### "I read that this is impossible"
+
+Forum answers often say the iCan app has no HealthKit support and no export,
+and that the only route is an Android phone running xDrip+ or Juggluco feeding
+Nightscout, plus a native iOS app to write HealthKit.
+
+That is out of date, at least for the Thai-language iCan app on i3/i6. The app's
+share button exports an `.xls` file, and Apple's own Shortcuts app can write to
+HealthKit with its built-in **Log Health Sample** action. The one missing piece
+is that Shortcuts cannot read `.xls`. That is the gap this project fills;
+everything else is stock iOS.
+
+---
+
+## How it works
+
+```
+iCan app ──share .xls──▶ Shortcut ──POST + cursor──▶ /api/convert
+                            │                            │
+                            │◀──── JSON readings ────────┘
+                            ▼
+                      Apple Health
+```
+
+1. The shortcut asks Apple Health for its newest Blood Glucose reading. That
+   timestamp is the **cursor**.
+2. It sends the `.xls` and the cursor to `/api/convert`.
+3. The server parses the export and returns only readings newer than the
+   cursor, already converted to the unit the shortcut logs in.
+4. The shortcut logs each reading with its real measurement time.
+
+Apple Health is the only state. HealthKit has no upsert — **Log Health Sample**
+only ever appends — so duplicates have to be filtered out before logging, and
+the cursor is how that happens without the server remembering anything.
+
+### Privacy
+
+The server parses the upload, returns the readings, and forgets: no database,
+no accounts, and the code logs no readings. The export does pass through it,
+though. If you would rather it never left a machine you control, run your own
+copy and point the shortcut at it.
+
+## Troubleshooting
+
+**Nothing was imported.** Either Health already had every reading, or the
+export could not be read. The published shortcut asks the server to answer
+errors with an empty list (see [`on_error`](#post-apiconvert)), so the shortcut
+cannot show the reason. To see it, send the export yourself:
+
+```bash
+curl -s -D - -X POST --data-binary @export.xls \
+  "https://ican-health-sync.vercel.app/api/convert?on_error=empty" | grep -i x-error
+```
+
+If the reason is a header or unit it does not recognise, please
+[open an issue](https://github.com/Nice0w0/ican-to-apple-health/issues) with
+the app's language and the header row of your export.
+
+**Readings of 0 in Health.** Shortcuts made before October 2026 logged a server
+error as a glucose of 0. Delete the old shortcut, install the current one, and
+delete the 0 readings in Health by hand.
+
+**Duplicates.** The cursor is wrong. Open the shortcut and check that action 1
+reads *Blood Glucose, Start Date is in the last 7 days, Sort by Start Date,
+Latest First, Limit 1*. Health cannot overwrite a sample, so existing
+duplicates have to be deleted by hand.
+
+**Slow.** Each reading costs four on-device actions, and a CGM records one every
+three minutes, about 480 a day. A first run or a long gap is slow; routine syncs
+carry only the handful of readings since the last one. Sync often rather than
+in one big batch.
+
+---
+
+## For developers
+
+The whole thing is the Python standard library: no dependencies, no build step.
+
+| Path | What it is |
+|---|---|
+| [`api/xlsmini.py`](api/xlsmini.py) | Minimal OLE2 + BIFF8 `.xls` reader |
+| [`api/cgm.py`](api/cgm.py) | Export → readings: header, unit, cursor, thinning |
+| [`api/convert.py`](api/convert.py) | HTTP handler, run by Vercel or [`server.py`](server.py) |
+| [`build_shortcut.py`](build_shortcut.py) | Generates the `.shortcut` plist |
+| [`public/`](public/) | The download site, served by Vercel, and the signed shortcuts |
+
+### Run your own copy
+
+**Vercel:**
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Nice0w0/ican-to-apple-health)
 
-Click, connect your GitHub account, done. You get an HTTPS URL like
-`https://your-project.vercel.app`, and your endpoint is
-`https://your-project.vercel.app/api/convert`. Set `CGM_TZ_OFFSET` if you are
-not in UTC+7, and `CGM_TOKEN` if only you should be able to use it.
-
-### Self-hosted
-
-No dependencies at all, so plain Python works:
+**Locally:**
 
 ```bash
 git clone https://github.com/Nice0w0/ican-to-apple-health.git && cd ican-to-apple-health
 python3 server.py        # http://127.0.0.1:8000/api/convert
 ```
 
-Or with Docker:
+**Docker:**
 
 ```bash
 cp .env.example .env
 docker compose up -d --build
 ```
 
-The container binds to `127.0.0.1` only. Put a TLS proxy in front — glucose
-readings should not cross the internet in plaintext. With Caddy:
-
-```
-cgm.example.com {
-    reverse_proxy 127.0.0.1:8000
-}
-```
-
-### Configuration
+The container binds to `127.0.0.1` only. Put a TLS proxy such as Caddy in
+front: glucose readings should not cross the internet in plaintext.
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `CGM_TOKEN` | *(unset)* | If set, requests must carry `X-Token` or `?token=`. Leave it unset for an instance anyone may use, as the public one is. |
-| `CGM_TZ_OFFSET` | `7` | **The wearer's** UTC offset in hours. The export contains no timezone, so this is how local reading times are reconstructed — a server running in UTC still produces correct times. |
+| `CGM_TZ_OFFSET` | `7` | **The wearer's** UTC offset in hours. The export has no timezone, so this is how reading times are reconstructed — a server running in UTC still gets them right. |
+| `CGM_TOKEN` | *(unset)* | If set, requests must carry `X-Token` or `?token=`. The public instance leaves it unset. |
 
-## API
-
-### `POST /convert`
-
-Body: the `.xls`, either as a multipart file field (any name) or as the raw
-request body.
-
-| Query | Meaning |
-|---|---|
-| `since` | ISO 8601 or a unix timestamp. Returns only readings **strictly newer**. A value without a timezone is read in `CGM_TZ_OFFSET`. |
-| `every` | Thin to at most one reading per this many minutes. See [Speed](#speed). |
-| `unit` | `mg/dL` (default) or `mmol/L`. Values are converted from whatever the export declares. |
-| `limit` | At most this many readings, newest first. Useful for a first run. |
-| `verbose` | `1` also returns `date_iso` and `unit` per reading. Off by default — the Shortcut does not read them and it doubles the payload. |
-| `token` | Alternative to the `X-Token` header, for clients that cannot set headers easily. Only needed when `CGM_TOKEN` is set. |
-| `on_error` | `empty` turns any error into `200 []`, with the reason in `X-Error`. The published shortcut sets it — see below. |
-
-Returns a JSON array, oldest first — only what the Shortcut logs:
-
-```json
-[{"value": 72, "date_text": "Sep 01, 2026 at 07:46 PM"}]
-```
-
-`date_text` exists because Shortcuts' date detector parses that exact shape
-reliably — including on a non-English device. Feed *that* to **Get Dates from
-Input**.
-
-Filtering happens before formatting: rows Health already has are dropped before
-any timestamp is rendered or any value converted.
-
-Response headers `X-Readings-Total`, `X-Readings-Returned`, `X-Unit`,
-`X-Source-Unit` and `X-Since` let a client report what happened without walking
-the array. `X-Since` echoes the cursor the server actually parsed, which is the
-quick way to tell *"nothing new"* from *"the cursor never arrived"* — an empty
-array looks the same either way.
-
-### Speed
-
-Two different things can make a share slow, and they have different fixes.
-
-**The import loop.** The Shortcut spends four on-device actions per reading. A
-CGM samples every three minutes — ~480 readings a day — so a large catch-up
-import really does take minutes. Normally it does not matter: `?since=` means a
-routine share carries only the handful of readings taken since the last one.
-`?every=N` is there for the catch-up case, returning one reading per N minutes
-instead of all of them. It walks newest-first, so **the most recent reading is
-always kept**. Off by default — every reading the CGM recorded is kept.
-
-**The Health lookup.** Action 1 asks Health for its newest Blood Glucose sample.
-Unbounded, that search grows with every import you have ever done, so the
-Shortcut gets slower over time *even when only one reading is new*. The
-generated Shortcut bounds it to the last 7 days (`--window`), which keeps the
-cursor lookup constant. If a share ever takes far longer than the number of new
-readings can explain, this is where to look — not the loop.
-
-### Units
-
-Older exports declare their unit in the value column header,
-`ค่ากลูโคส (mg/dL)`. Exports since about late September 2026 say only
-`ค่ากลูโคส`, so the unit is read off the values instead — but only when they
-leave no doubt: whole numbers with one above 35 are mg/dL (no mmol/L reading
-goes that high), decimals all at or below 35 are mmol/L, and anything else is
-refused. Either way the service converts to whatever `?unit=` asks for — so the number returned always matches
-the unit the Shortcut is configured to log.
-
-This matters because Shortcuts' **Log Health Sample** takes its unit from a
-fixed picker that cannot be driven by a variable. If the two disagree, Health
-records a badly wrong number with no error: `7.2 mmol/L` written as
-`7.2 mg/dL` reads as severe hypoglycaemia. Pinning both from one place is the
-only way they cannot drift.
-
-An unrecognised unit is rejected with `422` rather than assumed. Both English
-and Thai spellings of mg/dL and mmol/L are understood.
-
-Errors: `400` unreadable request, `401` bad token, `413` oversized,
-`422` not a CGM export.
-
-**Why the shortcut asks for `on_error=empty`.** Shortcuts does not treat a
-`4xx` as a failure. It hands the error body on, Repeat with Each walks the
-`{"error": ...}` dictionary, and Log Health Sample writes an empty value — a
-glucose of **0**, stamped with the current time, that only the wearer can
-delete. An empty array logs nothing. If a share imports nothing and you expected
-readings, the reason is in the `X-Error` response header.
-
-### `GET /healthz`
-
-`{"ok": true}`.
-
-## The Shortcut
-
-The files under [`public/shortcut/`](public/shortcut/) point at the public instance with no
-token, one per unit (see [Install](#install)). To build one for your own
-deployment on macOS:
+Then build a shortcut that points at it (macOS):
 
 ```bash
-python3 build_shortcut.py \
-  --url https://your-project.vercel.app/api/convert \
-  --unit mg/dL -o mine.shortcut          # add --token X if you set CGM_TOKEN
+python3 build_shortcut.py --url https://your-host/api/convert --unit mg/dL -o mine.shortcut
 shortcuts sign -m anyone -i mine.shortcut -o "Sync iCan to Apple Health.shortcut"
 ```
 
-`--unit` pins the URL parameter and the Log Health Sample picker together so
-they cannot disagree. `--every N` thins a big catch-up import; `--window DAYS`
-sets how far back action 1 looks for its cursor.
+| Flag | Meaning |
+|---|---|
+| `--unit` | `mg/dL` or `mmol/L`. Sets the URL parameter and the Log Health Sample picker together, so they cannot disagree. |
+| `--token` | Only if you set `CGM_TOKEN`. **Never publish a shortcut built with it** — the token is in its URL. |
+| `--every N` | Keep at most one reading per N minutes. |
+| `--window DAYS` | How far back action 1 looks for the cursor (default 7). |
 
-> **Never publish a shortcut built with `--token`.** The token is embedded in
-> its URL.
+### `POST /api/convert`
 
-### What it does, in order
+Body: the `.xls`, as the raw request body or as a multipart file field (any
+name).
 
-1. **Find Health Samples** — Blood Glucose in the last 7 days, newest first, limit 1 → the import cursor
-2. **Get Dates from Input** → that sample's Start Date
-3. **Format Date** — ISO 8601, so neither locale nor calendar can mangle it
-4. **Get Contents of URL** — POST the shared `.xls`, with the cursor as `?since=`
-5. **Get Dictionary from Input**
-6. **Repeat with Each**
-7. **Get Dictionary Value** — `value`
-8. **Get Dictionary Value** — `date_text`
-9. **Get Dates from Input**
-10. **Log Health Sample** — Blood Glucose, value ← 7, date ← 9
-11. **End Repeat**
+| Query | Meaning |
+|---|---|
+| `since` | The cursor: ISO 8601, a unix timestamp, or a date with a named Thai or English month. Only readings **strictly newer** are returned. A value without a timezone is read in `CGM_TZ_OFFSET`; one before 2000 is refused as corrupted. |
+| `unit` | `mg/dL` (default) or `mmol/L`. Values are converted from the export's own unit. |
+| `every` | At most one reading per this many minutes, walking newest first so the latest is always kept. |
+| `limit` | At most this many readings, newest first. |
+| `verbose` | `1` adds `date_iso` and `unit` to each reading. |
+| `on_error` | `empty` answers any error with `200 []` and the reason in `X-Error`. |
+| `token` | Alternative to the `X-Token` header. |
 
-Before the first real run, check that action 1 shows **Start Date is in the
-last 7 days**, **Sort by Start Date, Latest First, Limit 1**. Without that the cursor is wrong and readings import
-repeatedly — and Health has no way to overwrite a sample, so duplicates have to
-be deleted by hand.
+Returns a JSON array, oldest first:
 
-Then add `&limit=1` to the URL for one run and confirm in Health that the
-sample carries the right value **and** the CGM's measurement time rather than
-the import time. Remove it once both check out.
+```json
+[{"value": 117, "date_text": "Oct 01, 2026 at 01:17 PM"}]
+```
 
-## The `.xls` reader
+`date_text` is in that exact shape because Shortcuts' **Get Dates from Input**
+parses it reliably, including on a non-English phone.
 
-`xlsmini.py` is a standalone OLE2 + BIFF8 reader in the standard library only —
-no `xlrd`, no `pandas`. It handles both the mini-stream (small exports) and the
-regular FAT chain, and is verified cell-for-cell against `xlrd` on real
-exports.
+Headers `X-Readings-Total`, `X-Readings-Returned`, `X-Unit`, `X-Source-Unit` and
+`X-Since` say what happened without walking the array. `X-Since` echoes the
+cursor the server actually parsed: the quick way to tell "nothing new" from
+"the cursor never arrived".
+
+Errors: `400` unreadable request, `401` bad token, `413` over 10 MB, `422` not
+a readable CGM export.
+
+`GET /api/convert` returns `{"ok": true}`.
+
+#### Why `on_error=empty` exists
+
+Shortcuts does not treat a `4xx` as a failure. It passes the error body on,
+**Repeat with Each** walks the `{"error": ...}` dictionary, and **Log Health
+Sample** writes an empty value: a glucose of **0** at the current time, which
+only the wearer can delete. An empty array logs nothing. The published shortcut
+always sends it.
+
+### Export formats
+
+Exports from the Thai-language iCan app have a few rows of account details,
+then a header row and one row per reading, newest first:
+
+| Version | Header row |
+|---|---|
+| Until September 2026 | `เลขที่` · `เวลากลูโคส` · `ค่ากลูโคส (mg/dL)` |
+| Since September 2026 | `หมายเลขประจำตัวผลิตภัณฑ์` · `เวลากลูโคส` · `ค่ากลูโคส` |
+
+The header row is found by `เวลากลูโคส`, which both share. Times are parsed as
+`%H:%M,%m/%d/%Y`, never guessed: `09/01/2026` is ambiguous, and a wrong guess
+moves a reading by months.
+
+When the header declares no unit, it is read off the values, but only when they
+leave no doubt: whole numbers with one above 35 are mg/dL, since no mmol/L
+reading goes that high; values with decimals, all at or below 35, are mmol/L.
+Anything else is refused. This matters because the shortcut's unit picker is
+fixed: `7.2 mmol/L` logged as `7.2 mg/dL` reads as severe hypoglycaemia.
+
+### The `.xls` reader
+
+[`api/xlsmini.py`](api/xlsmini.py) reads OLE2 + BIFF8 with the standard library
+only, covering both the mini-stream (small exports) and the regular FAT chain.
+It is verified cell-for-cell against `xlrd` on real exports.
 
 The subtle part is the shared string table spanning `CONTINUE` records, where
 the encoding can flip between compressed and UTF-16 mid-string. Getting that
-wrong does not crash — it shifts every subsequent string index, which would
-attach a glucose value to the wrong timestamp. If you change the reader, diff
-the full grid against `xlrd` on real files before trusting it.
+wrong does not crash; it shifts every later string index, which would attach a
+glucose value to the wrong timestamp. If you change the reader, diff the full
+grid against `xlrd` on real files before trusting it.
 
-## Limitations
+### Limitations
 
-- Written against Sibionics/iCan Thai-language exports: it locates the header
-  row by its `เวลากลูโคส` column and parses times as `%H:%M,%m/%d/%Y`. Other
-  exporters will need adjusting.
-- The export has no timezone. The public instance reads it as UTC+7
-  (`CGM_TZ_OFFSET`), which is right for the Thai app; wearers elsewhere should
-  run their own copy with their own offset.
+- Written for exports from the **Thai-language** iCan app. Exports in other
+  languages likely have other headers and will be refused until added.
+- The export has no timezone. The public instance reads it as UTC+7. Wearers
+  elsewhere should run their own copy with their own `CGM_TZ_OFFSET`.
 - Blood glucose only.
-- A full day is ~480 readings and `Repeat with Each` is slow in Shortcuts, so
-  import regularly rather than in one batch. `?every=N` thins a catch-up.
+- Manual sync (share → tap), not live background sync.
 
 ## Licence
 
