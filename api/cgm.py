@@ -25,7 +25,11 @@ TZ_OFFSET = float(os.environ.get("CGM_TZ_OFFSET", "7"))
 TZ = timezone(timedelta(hours=TZ_OFFSET))
 TOKEN = os.environ.get("CGM_TOKEN", "")
 
-HEADER_COL0 = "เลขที่"
+# The header row is found by its time column. The first column's title has
+# changed between app versions -- "เลขที่" until September 2026, then
+# "หมายเลขประจำตัวผลิตภัณฑ์" -- while "เวลากลูโคส" stayed put.
+HEADER_TIME = "เวลากลูโคส"
+HEADER_COL0 = ("เลขที่", "หมายเลขประจำตัวผลิตภัณฑ์")
 TIME_FORMAT = "%H:%M,%m/%d/%Y"  # "15:22,09/01/2026" -> 1 Sep 2026, 15:22
 MAX_BYTES = 10 * 1024 * 1024
 
@@ -64,6 +68,30 @@ def canonical_unit(raw: str) -> str:
         raise BadRequest(422, "unrecognised glucose unit %r -- expected mg/dL "
                               "or mmol/L" % raw)
     return unit
+
+
+# A CGM reads roughly 2.2-33.3 mmol/L, i.e. 40-600 mg/dL. No mmol/L reading
+# can be above this, so a value over it can only be mg/dL.
+MAX_MMOL = 35
+
+
+def infer_unit(values: list[float]) -> str:
+    """
+    The unit of an export whose header does not say, from the values alone.
+
+    Only settled when the values leave no doubt: whole numbers with at least
+    one above MAX_MMOL are mg/dL; values with decimals, none above MAX_MMOL,
+    are mmol/L. Anything else is refused -- logging mmol/L as mg/dL, or the
+    reverse, records a number that looks like a medical emergency.
+    """
+    whole = all(v == int(v) for v in values)
+    high = max(values)
+    if whole and high > MAX_MMOL:
+        return "mg/dL"
+    if not whole and high <= MAX_MMOL:
+        return "mmol/L"
+    raise BadRequest(422, "the export does not say its glucose unit, and the "
+                          "values do not settle it")
 
 
 def convert_value(value: float, src: str, dst: str) -> float:
@@ -122,17 +150,20 @@ def read_rows(blob: bytes) -> tuple[list[tuple[datetime, float]], str]:
 
     header_row = None
     for i, row in enumerate(grid):
-        if row and str(row[0]).strip() == HEADER_COL0:
+        if len(row) > 1 and (str(row[1]).strip() == HEADER_TIME
+                             or str(row[0]).strip() in HEADER_COL0):
             header_row = i
             break
     if header_row is None:
-        raise BadRequest(422, "no '%s' header row -- not a CGM export" % HEADER_COL0)
+        raise BadRequest(422, "no '%s' header row -- not a CGM export" % HEADER_TIME)
 
-    # The value column header declares the unit, e.g. "ค่ากลูโคส (mg/dL)".
+    # Older exports declare the unit in the value header, "ค่ากลูโคส (mg/dL)".
+    # Newer ones say only "ค่ากลูโคส", and the unit is worked out from the
+    # values once they are read -- see infer_unit().
     head = str(grid[header_row][2]) if len(grid[header_row]) > 2 else ""
-    if "(" not in head or ")" not in head:
-        raise BadRequest(422, "value column header %r does not declare a unit" % head)
-    unit = canonical_unit(head[head.index("(") + 1:head.rindex(")")])
+    unit = None
+    if "(" in head and ")" in head:
+        unit = canonical_unit(head[head.index("(") + 1:head.rindex(")")])
 
     rows = []
     for i in range(header_row + 1, len(grid)):
@@ -155,6 +186,8 @@ def read_rows(blob: bytes) -> tuple[list[tuple[datetime, float]], str]:
         rows.append((when, value))
     if not rows:
         raise BadRequest(422, "header found but no readings under it")
+    if unit is None:
+        unit = infer_unit([value for _, value in rows])
     rows.sort(key=lambda r: r[0])
 
     # Collapse repeated timestamps. HealthKit has no upsert -- Log Health
