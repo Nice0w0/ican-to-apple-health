@@ -1,6 +1,6 @@
 # Sync iCan to Apple Health
 
-> A free, open-source iOS Shortcut that imports glucose readings from the iCan Health / iCan CGM app (Sinocare iCan i3, i6, and Sibionics) into Apple Health on iPhone, with their real measurement times and no duplicates. No Android, xDrip+, Juggluco, Nightscout, bridge app or manual entry.
+> A free, open-source iOS Shortcut that imports glucose readings from the iCan Health / iCan CGM app (Sinocare iCan i3, i6, and Sibionics) into Apple Health on iPhone, with their measurement times (read as UTC+7 on the public converter) and no duplicates. No Android, xDrip+, Juggluco, Nightscout, bridge app or manual entry.
 
 Key facts:
 
@@ -9,7 +9,8 @@ Key facts:
 - Re-syncing never duplicates readings: the shortcut asks Apple Health for its newest reading and imports only newer ones.
 - Sync is manual (share → tap), not background.
 - Works with exports from the Thai-language iCan app, both the original format and the September 2026 format. Units: mg/dL or mmol/L.
-- The converter keeps nothing: no database, no accounts. MIT licensed; self-hostable.
+- The shortcut uploads the `.xls` to a converter on Vercel (ican-health-sync.vercel.app/api/convert), which returns the readings and keeps nothing: no database, no accounts. Data does pass through that server; anyone who wants it to stay on a machine they control can self-host (MIT licensed).
+- The export has no timezone. The public converter reads times as Thai time (UTC+7), so for wearers in other timezones readings land hours off; they should self-host with their own `CGM_TZ_OFFSET`.
 
 Thai: แอป iCan ซิงค์เข้า Apple Health เองไม่ได้ แต่ใช้คำสั่งลัดฟรีนี้ส่งค่าน้ำตาลเข้าแอปสุขภาพบน iPhone ได้ พร้อมเวลาวัดจริง ไม่ซ้ำ ไม่ต้องกรอกเอง
 

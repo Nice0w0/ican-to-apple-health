@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sync iCan CGM to Apple Health on iPhone — free Shortcut</title>
-<meta name="description" content="Can the iCan Health / iCan CGM app sync with Apple Health? Yes, with a free iOS Shortcut: iCan (i3, i6) and Sibionics / Sinocare glucose readings land in Apple Health with their real measurement times, no duplicates, no manual entry. No Android, xDrip+, Nightscout or Xcode.">
+<meta name="description" content="Can the iCan CGM app sync with Apple Health? Yes: a free iOS Shortcut logs iCan and Sibionics glucose readings into Apple Health. No manual entry, no Android or xDrip+.">
 <link rel="canonical" href="https://ican-health-sync.vercel.app/en/">
 <link rel="alternate" hreflang="th" href="https://ican-health-sync.vercel.app/">
 <link rel="alternate" hreflang="en" href="https://ican-health-sync.vercel.app/en/">
@@ -81,7 +81,7 @@
         {
           "@type": "Question",
           "name": "Does it work with iCan i3, i6 and Sibionics?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes, with exports from the Thai-language iCan app, in both the original format and the one introduced in its September 2026 update." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, with exports from the Thai-language iCan app, in both the original format and the one introduced in its September 2026 update. Reading times are read as Thai time (UTC+7); outside that timezone, run your own copy with your own offset (see the README)." }
         },
         {
           "@type": "Question",
@@ -181,10 +181,11 @@
 
   <section class="card">
     <h2>“I read that this is impossible”</h2>
-    <p>The usual answer is that the iCan app has no Apple Health support, so your options are typing
-      readings into Health by hand, a bridge app, an Android phone running xDrip+ or Juggluco feeding
-      Nightscout, or waiting for Sinocare to update the app.</p>
-    <p>That is out of date. The iCan app's share button exports an <code>.xls</code> file, and Apple's own
+    <p>The usual answer is that the iCan app has no Apple Health support and no export, so your options
+      are typing readings into Health by hand, a bridge app, an Android phone running xDrip+ or Juggluco
+      feeding Nightscout, or waiting for Sinocare to update the app.</p>
+    <p>The first half is still true: the iCan app has no Apple Health switch. The second half is out of
+      date. The iCan app's share button exports an <code>.xls</code> file, and Apple's own
       Shortcuts app can write to Apple Health. The one missing piece was reading that <code>.xls</code>,
       and that is what this shortcut does.</p>
   </section>
@@ -202,7 +203,7 @@
     <h3>Does it sync automatically in the background?</h3>
     <p>Not yet. You share the export from the iCan app yourself. The first run imports the whole file and can take a few minutes; after that only new readings come in, so frequent syncs are quick.</p>
     <h3>Does it work with iCan i3, i6 and Sibionics?</h3>
-    <p>Yes, with exports from the Thai-language iCan app, in both the original format and the one introduced in its September 2026 update.</p>
+    <p>Yes, with exports from the Thai-language iCan app, in both the original format and the one introduced in its September 2026 update. Reading times are read as Thai time (UTC+7); outside that timezone, run your own copy with your own offset (see the README).</p>
     <h3>Will syncing again create duplicate readings?</h3>
     <p>No. The shortcut asks Apple Health for its newest glucose reading first and only imports readings taken after it.</p>
     <h3>Where is my glucose data stored?</h3>

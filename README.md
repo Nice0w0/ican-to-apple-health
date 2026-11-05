@@ -165,6 +165,7 @@ The whole thing is the Python standard library: no dependencies, no build step.
 | [`api/convert.py`](api/convert.py) | HTTP handler, run by Vercel or [`server.py`](server.py) |
 | [`build_shortcut.py`](build_shortcut.py) | Generates the `.shortcut` plist |
 | [`public/`](public/) | The download site, served by Vercel, and the signed shortcuts |
+| [`scripts/check_site.py`](scripts/check_site.py) | Checks each page's FAQ JSON-LD matches its visible FAQ, and `dateModified` matches `sitemap.xml`. Run after editing `public/`. |
 
 ### Run your own copy
 
