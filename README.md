@@ -33,10 +33,11 @@ including the format it switched to in September 2026.
 
 ### วิธีใช้
 
-1. ในแอป iCan กดส่งออก / แชร์ข้อมูล จะได้ไฟล์ `.xls`
-2. ในเมนูแชร์ เลือก **Sync iCan to Apple Health**
-3. ครั้งแรกระบบจะขอสิทธิ์เข้าถึงแอปสุขภาพ ให้กดอนุญาต
-4. รอจนเสร็จ ค่าจะอยู่ในแอปสุขภาพ → น้ำตาลในเลือด
+1. ในแอป iCan เปิดหน้าอุปกรณ์ CGM แล้วกด **ข้อมูลน้ำตาล**
+2. กด **บันทึกลงในโทรศัพท์** จะได้ไฟล์ `.xls` และเมนูแชร์จะเด้งขึ้นมา
+3. ในเมนูแชร์ เลือก **Sync iCan to Apple Health**
+4. ครั้งแรกระบบจะขอสิทธิ์เข้าถึงแอปสุขภาพ ให้กดอนุญาต
+5. รอจนเสร็จ ค่าจะอยู่ในแอปสุขภาพ → น้ำตาลในเลือด
 
 ครั้งแรกจะนำเข้าทั้งไฟล์ ถ้ามีหลายร้อยค่าอาจใช้เวลาหลายนาที
 ครั้งต่อไปจะนำเข้าเฉพาะค่าที่ใหม่กว่าค่าล่าสุดในแอปสุขภาพ
@@ -71,10 +72,11 @@ No account, no token, nothing to configure.
 
 ### Use
 
-1. In the iCan app, export / share your data. You get an `.xls` file.
-2. In the share sheet, pick **Sync iCan to Apple Health**.
-3. The first time, allow access to Apple Health.
-4. Readings appear in Health → Blood Glucose.
+1. In the iCan app, open your CGM device and tap **ข้อมูลน้ำตาล** (glucose data).
+2. Tap **บันทึกลงในโทรศัพท์** (save to phone). You get an `.xls` file and the share sheet opens.
+3. In the share sheet, pick **Sync iCan to Apple Health**.
+4. The first time, allow access to Apple Health.
+5. Readings appear in Health → Blood Glucose.
 
 The first run imports the whole export, which takes a few minutes for hundreds
 of readings. After that, only readings newer than the latest one in Health come
