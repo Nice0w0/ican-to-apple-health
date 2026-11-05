@@ -1,7 +1,7 @@
 """Check that the download pages agree with themselves and the sitemap.
 
-Each page carries its FAQ twice: as FAQPage JSON-LD and as visible <h3>/<p>
-pairs. Google requires the two to match, so this fails when one is edited
+Each page carries its FAQ twice: as FAQPage JSON-LD and as visible <details> items
+(<summary><h3>question</h3></summary><p>answer</p>). Google requires the two to match, so this fails when one is edited
 without the other. It also checks each page's dateModified against its
 <lastmod> in sitemap.xml.
 
@@ -30,10 +30,10 @@ def check(url, path, lastmod):
     nodes = {n["@type"]: n for n in ld["@graph"]}
 
     structured = [(q["name"], q["acceptedAnswer"]["text"]) for q in nodes["FAQPage"]["mainEntity"]]
-    section = re.search(r'<section class="card">\s*<h2>(?:FAQ|คำถามที่พบบ่อย)</h2>(.*?)</section>', s, re.S)
+    section = re.search(r'<section[^>]*id="faq"[^>]*>(.*?)</section>', s, re.S)
     if not section:
         return [f"{path}: FAQ section not found"]
-    visible = [(text(q), text(a)) for q, a in re.findall(r"<h3>(.*?)</h3>\s*<p>(.*?)</p>", section.group(1), re.S)]
+    visible = [(text(q), text(a)) for q, a in re.findall(r"<summary>\s*<h3>(.*?)</h3>.*?</summary>\s*<p>(.*?)</p>", section.group(1), re.S)]
     if structured != visible:
         for i in range(max(len(structured), len(visible))):
             a = structured[i] if i < len(structured) else None
