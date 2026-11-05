@@ -143,57 +143,22 @@ blockquote.heard + p { margin-top: 16px; }
 footer.foot { padding: 32px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
 footer.foot a { color: var(--text-2); }
 
-/* How-to screens: the iCan app and share sheet redrawn with placeholder data.
-   The control to tap carries the accent ring, nothing else does. */
+/* How-to screens: the iCan app and the share sheet redrawn at the
+   screenshots' native 923x2000 coordinates and scaled down, with placeholder
+   data. They stay light in dark mode, like a screenshot would. */
 .phones { display: flex; gap: 16px; margin: 24px -16px 0; padding: 4px 16px 8px; overflow-x: auto;
           scroll-snap-type: x mandatory; scrollbar-width: none; }
 section.block > .phones { max-width: none; }
 .phones::-webkit-scrollbar { display: none; }
-.shot { flex: 0 0 216px; margin: 0; scroll-snap-align: start; }
+.shot { flex: 0 0 280px; margin: 0; scroll-snap-align: start; }
 .shot figcaption { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; color: var(--text-2); }
 .shot .n { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; flex: none;
            background: var(--raised); font: 500 12px/1 var(--mono); color: var(--text-2); }
-.phone { height: 400px; border-radius: 28px; border: 1px solid var(--line); background: var(--raised);
-         padding: 8px; overflow: hidden; box-shadow: var(--shadow); font-size: 11px; line-height: 1.4;
-         color: var(--text); display: flex; flex-direction: column; }
-.phone .bar { font: 500 11px/1 var(--mono); padding: 8px 12px 0; color: var(--text-2); }
-.phone .appbar { display: flex; align-items: center; gap: 4px; padding: 12px 4px 8px; font-size: 12px; font-weight: 500; }
-.phone .appbar svg { color: var(--muted); }
-.phone .appbar span { flex: 1; text-align: center; margin-right: 18px; }
-.phone .screen { flex: 1; display: flex; flex-direction: column; gap: 8px; min-height: 0; }
-.phone b { font-weight: 600; }
-.phone small { display: block; font-size: 11px; color: var(--muted); }
-.phone .device { display: flex; gap: 12px; align-items: center; background: var(--card); border-radius: 16px; padding: 12px; }
-.phone .sensor { width: 36px; height: 36px; border-radius: 50%; flex: none; background: var(--raised);
-                 border: 1px solid var(--line); box-shadow: inset 0 0 0 11px var(--card); }
-.phone .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; background: var(--card);
-                border-radius: 16px; padding: 8px; }
-.phone .tiles span { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center;
-                     padding: 8px 2px; border-radius: 10px; color: var(--text-2); }
-.phone .tiles svg { color: var(--muted); }
-.phone .table { background: var(--card); border-radius: 16px; overflow: hidden; }
-.phone .row { display: grid; grid-template-columns: 1fr 1fr; align-items: center; text-align: center;
-              padding: 6px 4px; border-top: 1px solid var(--line); font-family: var(--mono);
-              font-variant-numeric: tabular-nums; color: var(--text-2); }
-.phone .row.head { border-top: 0; font-family: var(--font); background: var(--raised); color: var(--text); font-weight: 500; }
-.phone .row span:last-child { color: var(--text); }
-.phone .buttons { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 4px 0 8px; }
-.phone .buttons span { display: grid; place-items: center; height: 36px; border-radius: 18px; text-align: center;
-                       border: 1px solid var(--line); background: var(--card); padding: 0 4px; }
-.phone .buttons .primary { background: var(--text); color: var(--bg); border-color: transparent; }
-.phone.sheet-bg { background: var(--line); }
-.phone .sheet { margin-top: auto; background: var(--card); border-radius: 20px; padding: 12px; display: flex;
-                flex-direction: column; gap: 12px; }
-.phone .file { display: flex; gap: 8px; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
-.phone .file svg { color: var(--muted); flex: none; }
-.phone .actions-list { display: flex; flex-direction: column; gap: 4px; background: var(--raised); border-radius: 12px; padding: 4px; }
-.phone .actions-list span { display: flex; justify-content: space-between; align-items: center; gap: 8px;
-                            padding: 8px; border-radius: 8px; }
-.phone .actions-list svg { color: var(--muted); flex: none; }
-.phone .menu { background: var(--card); border-radius: 16px; padding: 0 12px; }
-.phone .menu span { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; }
-.phone .menu span + span { border-top: 1px solid var(--line); }
-.phone .menu svg { color: var(--muted); }
-.phone .tap { outline: 2px solid var(--accent); outline-offset: 1px; }
-.phone .tiles .tap, .phone .tiles .tap svg, .phone .actions-list .tap svg { color: var(--accent); }
-@media (min-width: 720px) { .phones { margin: 24px 0 0; padding: 4px 4px 8px; overflow: visible; } }
+.ss { width: 280px; height: 607px; overflow: hidden; border-radius: 28px; border: 1px solid var(--line);
+      box-shadow: var(--shadow); background: #fff; }
+.ss-in { position: relative; width: 923px; height: 2000px; transform: scale(0.30336); transform-origin: 0 0;
+         font-family: -apple-system, BlinkMacSystemFont, Thonburi, "Sukhumvit Set", "Noto Sans Thai", sans-serif; }
+.ss-in > * { position: absolute; display: block; margin: 0; white-space: nowrap; font-style: normal; }
+.ss-in .tap { width: 160px; height: 160px; border-radius: 50%; background: rgba(212, 42, 71, 0.1);
+              border: 6px solid rgba(212, 42, 71, 0.85); }
+@media (min-width: 920px) { .phones { margin: 24px 0 0; padding: 4px 4px 8px; overflow: visible; } }
