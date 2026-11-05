@@ -89,24 +89,35 @@ code { font: 0.9em var(--mono); background: var(--raised); padding: 2px 4px; bor
 :root[data-theme="dark"] .btn.secondary { border-color: var(--line); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.secondary { border-color: var(--line); } }
 
-/* The moment: one day of readings */
+/* The moment: iCan Health → Sync iCan → Apple Health, then the same readings
+   on both sides with their times. The iCan tile is drawn in code as a stand-in. */
 .reading { margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: 16px;
            padding: 20px; box-shadow: var(--shadow); }
 .reading-head { display: flex; justify-content: space-between; align-items: baseline;
                 font-size: 14px; color: var(--text-2); }
 .reading-head .tag { font-size: 12px; color: var(--muted); }
-.figure { display: flex; align-items: baseline; gap: 8px; margin-top: 8px;
-          font-family: var(--mono); font-variant-numeric: tabular-nums; }
-.figure .value { font-size: 40px; line-height: 1; font-weight: 500; color: var(--text); }
-.figure .unit, .figure .time { font-size: 14px; color: var(--muted); }
-.figure .time::before { content: "·"; margin-right: 8px; }
-.chart { display: block; width: 100%; height: auto; margin-top: 16px; }
-.chart .band { fill: var(--raised); }
-.chart .grid { stroke: var(--line); stroke-width: 1; }
-.chart .label { fill: var(--muted); font: 11px var(--mono); }
-.chart .dot { fill: var(--text-2); opacity: 0.55; }
-.chart .now { fill: var(--accent); }
-.chart .now-ring { fill: none; stroke: var(--accent); stroke-width: 1.5; opacity: 0.35; }
+.flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: start; gap: 4px; margin-top: 24px; }
+.app { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 13px; color: var(--text-2);
+       text-align: center; }
+.icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 16px;
+        border: 1px solid var(--line); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06); }
+.icon.ican { background: #d11f25; color: #fff; font-size: 20px; font-weight: 600; letter-spacing: -0.01em; border-color: transparent; }
+.icon.health { background: #fff; }
+.icon.sync { background: #222; border-color: transparent; }
+:root[data-theme="dark"] .icon.sync { background: #3a3a3c; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .icon.sync { background: #3a3a3c; } }
+footer.foot p + p { margin-top: 8px; font-size: 13px; }
+.arrow { display: block; padding-top: 26px; color: var(--muted); }
+@media (min-width: 880px) { .icon { width: 72px; height: 72px; border-radius: 18px; } .arrow { padding-top: 30px; } }
+.ledger { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+.ledger .col { background: var(--raised); border-radius: 12px; padding: 12px; }
+.ledger p { font-size: 12px; color: var(--muted); }
+.ledger ul { list-style: none; margin: 8px 0 0; padding: 0; }
+.ledger li { display: flex; justify-content: space-between; align-items: center; padding: 6px 0;
+             border-top: 1px solid var(--line); font: 13px var(--mono); font-variant-numeric: tabular-nums; color: var(--text-2); }
+.ledger li:first-child { color: var(--text); }
+.ledger li span:last-child { display: inline-flex; align-items: center; gap: 6px; }
+.ledger li svg { color: var(--accent); }
 .reading .caption { margin-top: 12px; font-size: 13px; color: var(--muted); }
 
 /* Sections */
