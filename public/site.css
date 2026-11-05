@@ -101,7 +101,7 @@ code { font: 0.9em var(--mono); background: var(--raised); padding: 2px 4px; bor
        text-align: center; }
 .icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 16px;
         border: 1px solid var(--line); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06); }
-.icon.ican { background: #d11f25; color: #fff; font-size: 20px; font-weight: 600; letter-spacing: -0.01em; border-color: transparent; }
+.icon.ican { background: #d11f25; color: #fff; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; border-color: transparent; }
 .icon.health { background: #fff; }
 .icon.sync { background: #007aff; border-color: transparent; }
 :root[data-theme="dark"] .icon.sync { background: #0a84ff; }
