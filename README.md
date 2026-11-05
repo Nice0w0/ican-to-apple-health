@@ -72,7 +72,7 @@ No account, no token, nothing to configure.
 
 ### Use
 
-1. In the iCan app, open your CGM device and tap **ข้อมูลน้ำตาล** (glucose data).
+1. In the iCan app, set to Thai, open your CGM device and tap **ข้อมูลน้ำตาล** (glucose data).
 2. Tap **บันทึกลงในโทรศัพท์** (save to phone). You get an `.xls` file and the share sheet opens.
 3. In the share sheet, pick **Sync iCan to Apple Health**.
 4. The first time, allow access to Apple Health.
