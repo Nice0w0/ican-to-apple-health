@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sync iCan to Apple Health — ส่งค่าน้ำตาลจาก iCan CGM เข้าแอปสุขภาพ iPhone</title>
-<meta name="description" content="ซิงก์ค่าน้ำตาลจากเครื่องวัดน้ำตาลต่อเนื่อง (CGM) iCan i3, i6 ของ Sinocare และ Sibionics เข้า Apple Health (แอปสุขภาพ) บน iPhone ด้วยคำสั่งลัดฟรี ค่าเข้าพร้อมเวลาวัดจริง ไม่ซ้ำ ไม่ต้องใช้ Android, xDrip+ หรือ Nightscout">
+<title>ซิงค์ iCan เข้า Apple Health บน iPhone ได้แล้ว — คำสั่งลัดฟรี | Sync iCan to Apple Health</title>
+<meta name="description" content="iCan เข้า Apple Health ได้ไหม? ได้ ด้วยคำสั่งลัดฟรีบน iPhone ส่งค่าน้ำตาลจากแอป iCan Health / iCan CGM (i3, i6 ของ Sinocare และ Sibionics) เข้าแอปสุขภาพพร้อมเวลาวัดจริง ไม่ซ้ำ ไม่ต้องกรอกเองทีละค่า ไม่ต้องใช้ Android, xDrip+ หรือ Nightscout">
 <link rel="canonical" href="https://ican-health-sync.vercel.app/">
 <link rel="alternate" hreflang="th" href="https://ican-health-sync.vercel.app/">
 <link rel="alternate" hreflang="en" href="https://ican-health-sync.vercel.app/en/">
@@ -17,13 +17,13 @@
 <meta property="og:locale" content="th_TH">
 <meta property="og:locale:alternate" content="en_US">
 <meta property="og:url" content="https://ican-health-sync.vercel.app/">
-<meta property="og:title" content="Sync iCan to Apple Health — ส่งค่าน้ำตาลจาก iCan เข้าแอปสุขภาพ iPhone">
+<meta property="og:title" content="ซิงค์ iCan เข้า Apple Health บน iPhone ได้แล้ว">
 <meta property="og:description" content="คำสั่งลัดฟรีที่ส่งค่าน้ำตาลจาก CGM iCan / Sibionics เข้า Apple Health พร้อมเวลาวัดจริง แชร์ไฟล์ แตะครั้งเดียว จบ">
 <meta property="og:image" content="https://ican-health-sync.vercel.app/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sync iCan to Apple Health">
+<meta name="twitter:title" content="ซิงค์ iCan เข้า Apple Health บน iPhone ได้แล้ว">
 <meta name="twitter:description" content="ส่งค่าน้ำตาลจาก CGM iCan / Sibionics เข้า Apple Health ด้วยคำสั่งลัดฟรี">
 <meta name="twitter:image" content="https://ican-health-sync.vercel.app/og.png">
 
@@ -36,7 +36,7 @@
     {
       "@type": "SoftwareApplication",
       "name": "Sync iCan to Apple Health",
-      "alternateName": ["ican-to-apple-health", "iCan CGM to Apple Health"],
+      "alternateName": ["ican-to-apple-health", "iCan CGM to Apple Health", "ซิงค์ iCan เข้า Apple Health"],
       "applicationCategory": "HealthApplication",
       "operatingSystem": "iOS",
       "description": "คำสั่งลัด iOS ที่ส่งค่าน้ำตาลจากไฟล์ส่งออกของ CGM iCan / Sibionics เข้า Apple Health พร้อมเวลาวัดจริง",
@@ -46,20 +46,37 @@
       "isAccessibleForFree": true,
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "THB" },
       "license": "https://opensource.org/licenses/MIT",
-      "codeRepository": "https://github.com/Nice0w0/ican-to-apple-health"
+      "codeRepository": "https://github.com/Nice0w0/ican-to-apple-health",
+      "author": { "@type": "Person", "name": "Nice0w0", "url": "https://github.com/Nice0w0" },
+      "dateModified": "2026-11-05"
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "แอป iCan เชื่อมกับ Apple Health ได้ไหม",
-          "acceptedAnswer": { "@type": "Answer", "text": "แอป iCan ไม่ได้เชื่อม Apple Health ให้เอง แต่ส่งออกข้อมูลเป็นไฟล์ .xls ได้ คำสั่งลัด Sync iCan to Apple Health อ่านไฟล์นั้นแล้วบันทึกค่าน้ำตาลลงแอปสุขภาพของ iPhone พร้อมเวลาวัดจริง" }
+          "name": "iCan ซิงค์กับ Apple Health ได้ไหม",
+          "acceptedAnswer": { "@type": "Answer", "text": "แอป iCan Health / iCan CGM ของ Sinocare ไม่มีปุ่มซิงค์กับ Apple Health ในตัว แต่ส่งออกข้อมูลเป็นไฟล์ .xls ได้ คำสั่งลัด Sync iCan to Apple Health อ่านไฟล์นั้นแล้วบันทึกค่าน้ำตาลลงแอปสุขภาพของ iPhone พร้อมเวลาวัดจริง" }
         },
         {
           "@type": "Question",
-          "name": "ต้องใช้ Android, xDrip+ หรือ Nightscout ไหม",
-          "acceptedAnswer": { "@type": "Answer", "text": "ไม่ต้อง ใช้แค่ iPhone แอป iCan และแอปคำสั่งลัดที่มีมากับ iOS อยู่แล้ว" }
+          "name": "บน iPhone (iOS) ต้องทำยังไง",
+          "acceptedAnswer": { "@type": "Answer", "text": "ติดตั้งคำสั่งลัดจากหน้านี้ครั้งเดียว จากนั้นทุกครั้งที่อยากซิงค์ ให้กดส่งออก / แชร์ข้อมูลในแอป iCan แล้วเลือก Sync iCan to Apple Health ในเมนูแชร์ ค่าจะไปอยู่ที่แอปสุขภาพ → น้ำตาลในเลือด" }
+        },
+        {
+          "@type": "Question",
+          "name": "ต้องกรอกค่าน้ำตาลเองในแอปสุขภาพไหม",
+          "acceptedAnswer": { "@type": "Answer", "text": "ไม่ต้อง CGM บันทึกค่าทุก 3 นาที ราววันละ 480 ค่า กรอกเองไม่ไหว คำสั่งลัดบันทึกให้ทุกค่าพร้อมเวลาที่วัดจริง" }
+        },
+        {
+          "@type": "Question",
+          "name": "ต้องใช้แอปตัวกลาง หรือ Android, xDrip+, Nightscout ไหม",
+          "acceptedAnswer": { "@type": "Answer", "text": "ไม่ต้อง ใช้แค่ iPhone แอป iCan และแอปคำสั่งลัดที่มีมากับ iOS อยู่แล้ว ไม่ต้องตั้ง server ไม่ต้องสมัครบัญชีแอปอื่น" }
+        },
+        {
+          "@type": "Question",
+          "name": "ซิงค์อัตโนมัติเบื้องหลังได้ไหม",
+          "acceptedAnswer": { "@type": "Answer", "text": "ยังไม่ได้ ต้องกดแชร์ไฟล์จากแอป iCan เอง ครั้งแรกนำเข้าทั้งไฟล์ซึ่งอาจใช้เวลาหลายนาที ครั้งต่อไปนำเข้าเฉพาะค่าใหม่ ถ้าซิงค์บ่อยจะเร็วขึ้นมาก" }
         },
         {
           "@type": "Question",
@@ -68,7 +85,7 @@
         },
         {
           "@type": "Question",
-          "name": "ค่าจะซ้ำไหมถ้าซิงก์หลายครั้ง",
+          "name": "ค่าจะซ้ำไหมถ้าซิงค์หลายครั้ง",
           "acceptedAnswer": { "@type": "Answer", "text": "ไม่ซ้ำ คำสั่งลัดถามแอปสุขภาพก่อนว่าค่าล่าสุดที่มีคือเวลาไหน แล้วนำเข้าเฉพาะค่าที่ใหม่กว่า" }
         },
         {
@@ -134,10 +151,11 @@
   <header>
     <a class="lang" href="/en/" hreflang="en" lang="en">English</a>
     <p class="eyebrow">Sync iCan to Apple Health</p>
-    <h1>ซิงก์ค่าน้ำตาลจาก iCan เข้า Apple Health</h1>
-    <p class="lead">ส่งค่าน้ำตาลจากเครื่องวัดน้ำตาลต่อเนื่อง (CGM) iCan i3, i6 ของ Sinocare และ Sibionics
-      เข้าแอปสุขภาพบน iPhone ด้วยคำสั่งลัดฟรี ค่าเข้าพร้อมเวลาวัดจริง ไม่ซ้ำ ไม่ต้องใช้ Android, xDrip+
-      หรือ Nightscout</p>
+    <h1>ซิงค์ค่าน้ำตาลจาก iCan เข้า Apple Health บน iPhone</h1>
+    <p class="lead">แอป iCan Health / iCan CGM ไม่มีปุ่มซิงค์ (sync) กับ Apple Health ให้ แต่ส่งออกไฟล์ได้
+      คำสั่งลัดฟรีนี้อ่านไฟล์นั้น แล้วส่งค่าน้ำตาลจากเครื่องวัดน้ำตาลต่อเนื่อง (CGM) iCan i3, i6 ของ Sinocare
+      และ Sibionics เข้าแอปสุขภาพบน iPhone พร้อมเวลาวัดจริง ไม่ซ้ำ ไม่ต้องกรอกเอง ไม่ต้องใช้ Android,
+      xDrip+ หรือ Nightscout</p>
   </header>
 
   <section class="card" id="download">
@@ -163,24 +181,29 @@
 
   <section class="card">
     <h2>คำถามที่พบบ่อย</h2>
-    <h3>แอป iCan เชื่อมกับ Apple Health ได้ไหม</h3>
-    <p>แอป iCan ไม่ได้เชื่อม Apple Health ให้เอง แต่ส่งออกข้อมูลเป็นไฟล์ .xls ได้
-      คำสั่งลัดนี้อ่านไฟล์นั้นแล้วบันทึกค่าน้ำตาลลงแอปสุขภาพพร้อมเวลาวัดจริง</p>
-    <h3>ต้องใช้ Android, xDrip+ หรือ Nightscout ไหม</h3>
-    <p>ไม่ต้อง ใช้แค่ iPhone แอป iCan และแอปคำสั่งลัดที่มีมากับ iOS อยู่แล้ว</p>
+    <h3>iCan ซิงค์กับ Apple Health ได้ไหม</h3>
+    <p>แอป iCan Health / iCan CGM ของ Sinocare ไม่มีปุ่มซิงค์กับ Apple Health ในตัว แต่ส่งออกข้อมูลเป็นไฟล์ .xls ได้ คำสั่งลัด Sync iCan to Apple Health อ่านไฟล์นั้นแล้วบันทึกค่าน้ำตาลลงแอปสุขภาพของ iPhone พร้อมเวลาวัดจริง</p>
+    <h3>บน iPhone (iOS) ต้องทำยังไง</h3>
+    <p>ติดตั้งคำสั่งลัดจากหน้านี้ครั้งเดียว จากนั้นทุกครั้งที่อยากซิงค์ ให้กดส่งออก / แชร์ข้อมูลในแอป iCan แล้วเลือก <strong>Sync iCan to Apple Health</strong> ในเมนูแชร์ ค่าจะไปอยู่ที่แอปสุขภาพ → น้ำตาลในเลือด</p>
+    <h3>ต้องกรอกค่าน้ำตาลเองในแอปสุขภาพไหม</h3>
+    <p>ไม่ต้อง CGM บันทึกค่าทุก 3 นาที ราววันละ 480 ค่า กรอกเองไม่ไหว คำสั่งลัดบันทึกให้ทุกค่าพร้อมเวลาที่วัดจริง</p>
+    <h3>ต้องใช้แอปตัวกลาง หรือ Android, xDrip+, Nightscout ไหม</h3>
+    <p>ไม่ต้อง ใช้แค่ iPhone แอป iCan และแอปคำสั่งลัดที่มีมากับ iOS อยู่แล้ว ไม่ต้องตั้ง server ไม่ต้องสมัครบัญชีแอปอื่น</p>
+    <h3>ซิงค์อัตโนมัติเบื้องหลังได้ไหม</h3>
+    <p>ยังไม่ได้ ต้องกดแชร์ไฟล์จากแอป iCan เอง ครั้งแรกนำเข้าทั้งไฟล์ซึ่งอาจใช้เวลาหลายนาที ครั้งต่อไปนำเข้าเฉพาะค่าใหม่ ถ้าซิงค์บ่อยจะเร็วขึ้นมาก</p>
     <h3>ใช้กับ iCan i3, i6 และ Sibionics ได้ไหม</h3>
     <p>ได้ ใช้กับไฟล์ส่งออกจากแอป iCan ภาษาไทย ทั้งรูปแบบเดิมและรูปแบบใหม่หลังอัปเดตเดือนกันยายน 2026</p>
-    <h3>ค่าจะซ้ำไหมถ้าซิงก์หลายครั้ง</h3>
+    <h3>ค่าจะซ้ำไหมถ้าซิงค์หลายครั้ง</h3>
     <p>ไม่ซ้ำ คำสั่งลัดถามแอปสุขภาพก่อนว่าค่าล่าสุดที่มีคือเวลาไหน แล้วนำเข้าเฉพาะค่าที่ใหม่กว่า</p>
     <h3>ข้อมูลน้ำตาลของฉันถูกเก็บไว้ที่ไหน</h3>
-    <p>ไฟล์ถูกส่งไปแปลงที่ server แล้วส่งค่ากลับมาทันที server ไม่มีฐานข้อมูลและไม่เก็บค่าน้ำตาลไว้
-      ค่าถูกบันทึกในแอปสุขภาพบน iPhone ของคุณเท่านั้น</p>
+    <p>ไฟล์ถูกส่งไปแปลงที่ server แล้วส่งค่ากลับมาทันที server ไม่มีฐานข้อมูลและไม่เก็บค่าน้ำตาลไว้ ค่าถูกบันทึกในแอปสุขภาพบน iPhone ของคุณเท่านั้น</p>
   </section>
 
   <section class="card">
-    <h2>“อ่านมาว่าทำไม่ได้”</h2>
-    <p>หลายกระทู้บอกว่าแอป iCan ไม่รองรับ Apple Health และส่งออกข้อมูลไม่ได้ ต้องใช้มือถือ Android
-      ลง xDrip+ หรือ Juggluco ส่งต่อไป Nightscout แล้วเขียนแอป iOS เองเท่านั้น</p>
+    <h2>“อ่านมาว่า iCan เข้า Apple Health ไม่ได้”</h2>
+    <p>คำตอบที่เจอบ่อยคือแอป iCan ไม่รองรับ Apple Health ทางออกมีแค่กรอกค่าเองในแอปสุขภาพทีละค่า
+      ใช้แอปตัวกลาง ใช้มือถือ Android ลง xDrip+ หรือ Juggluco ส่งต่อไป Nightscout หรือรอให้ Sinocare
+      อัปเดตแอป</p>
     <p>ข้อมูลนั้นเก่าแล้ว ปุ่มแชร์ในแอป iCan ส่งออกเป็นไฟล์ <code>.xls</code> ได้ และแอปคำสั่งลัดของ Apple
       เองก็เขียนข้อมูลลง Apple Health ได้ สิ่งเดียวที่ขาดคือการอ่านไฟล์ <code>.xls</code>
       ซึ่งคำสั่งลัดนี้ทำให้</p>

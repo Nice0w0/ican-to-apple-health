@@ -1,0 +1,25 @@
+# Sync iCan to Apple Health
+
+> A free, open-source iOS Shortcut that imports glucose readings from the iCan Health / iCan CGM app (Sinocare iCan i3, i6, and Sibionics) into Apple Health on iPhone, with their real measurement times and no duplicates. No Android, xDrip+, Juggluco, Nightscout, bridge app or manual entry.
+
+Key facts:
+
+- The iCan app has no built-in Apple Health / HealthKit sync, but its share button exports an `.xls` file.
+- This shortcut takes that `.xls` from the share sheet, converts it, and logs each reading with Apple's built-in "Log Health Sample" action.
+- Re-syncing never duplicates readings: the shortcut asks Apple Health for its newest reading and imports only newer ones.
+- Sync is manual (share → tap), not background.
+- Works with exports from the Thai-language iCan app, both the original format and the September 2026 format. Units: mg/dL or mmol/L.
+- The converter keeps nothing: no database, no accounts. MIT licensed; self-hostable.
+
+Thai: แอป iCan ซิงค์เข้า Apple Health เองไม่ได้ แต่ใช้คำสั่งลัดฟรีนี้ส่งค่าน้ำตาลเข้าแอปสุขภาพบน iPhone ได้ พร้อมเวลาวัดจริง ไม่ซ้ำ ไม่ต้องกรอกเอง
+
+## Pages
+
+- [หน้าดาวน์โหลด (ภาษาไทย)](https://ican-health-sync.vercel.app/): install and use, in Thai
+- [Download page (English)](https://ican-health-sync.vercel.app/en/): install and use, in English
+- [Source code and documentation](https://github.com/Nice0w0/ican-to-apple-health): how it works, troubleshooting, API, self-hosting
+
+## Downloads
+
+- [Shortcut, mg/dL](https://ican-health-sync.vercel.app/shortcut/mg-dL/Sync%20iCan%20to%20Apple%20Health.shortcut)
+- [Shortcut, mmol/L](https://ican-health-sync.vercel.app/shortcut/mmol-L/Sync%20iCan%20to%20Apple%20Health.shortcut)

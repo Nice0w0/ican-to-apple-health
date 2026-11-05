@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sync iCan CGM to Apple Health on iPhone — free Shortcut</title>
-<meta name="description" content="Get iCan (i3, i6) and Sibionics / Sinocare CGM glucose readings into Apple Health on iPhone with a free iOS Shortcut. Real measurement times, no duplicates. No Android, xDrip+, Nightscout or Xcode.">
+<meta name="description" content="Can the iCan Health / iCan CGM app sync with Apple Health? Yes, with a free iOS Shortcut: iCan (i3, i6) and Sibionics / Sinocare glucose readings land in Apple Health with their real measurement times, no duplicates, no manual entry. No Android, xDrip+, Nightscout or Xcode.">
 <link rel="canonical" href="https://ican-health-sync.vercel.app/en/">
 <link rel="alternate" hreflang="th" href="https://ican-health-sync.vercel.app/">
 <link rel="alternate" hreflang="en" href="https://ican-health-sync.vercel.app/en/">
@@ -46,7 +46,9 @@
       "isAccessibleForFree": true,
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "license": "https://opensource.org/licenses/MIT",
-      "codeRepository": "https://github.com/Nice0w0/ican-to-apple-health"
+      "codeRepository": "https://github.com/Nice0w0/ican-to-apple-health",
+      "author": { "@type": "Person", "name": "Nice0w0", "url": "https://github.com/Nice0w0" },
+      "dateModified": "2026-11-05"
     },
     {
       "@type": "FAQPage",
@@ -54,12 +56,27 @@
         {
           "@type": "Question",
           "name": "Does the iCan CGM app sync with Apple Health?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Not by itself, but it can export your readings as an .xls file. The free Sync iCan to Apple Health shortcut reads that file and logs each reading into Apple Health with its real measurement time." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Not by itself: the iCan Health / iCan CGM app has no Apple Health switch, but it can export your readings as an .xls file. This shortcut reads that file and logs each reading into Apple Health with its real measurement time." }
         },
         {
           "@type": "Question",
-          "name": "Do I need Android, xDrip+, Juggluco or Nightscout?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. You need an iPhone, the iCan app and Apple's built-in Shortcuts app. Nothing else." }
+          "name": "How do I get iCan readings into Apple Health on iPhone?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Install the shortcut from this page once. Then whenever you want to sync, export / share your data in the iCan app and pick Sync iCan to Apple Health in the share sheet. Readings appear in Health → Blood Glucose." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I have to enter readings into Apple Health by hand?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. A CGM records a reading every three minutes, about 480 a day, far too many to type in. The shortcut logs every one with its real measurement time." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a bridge app, Android, xDrip+, Juggluco or Nightscout?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. You need an iPhone, the iCan app and Apple's built-in Shortcuts app. No server to set up, no other app account." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it sync automatically in the background?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Not yet. You share the export from the iCan app yourself. The first run imports the whole file and can take a few minutes; after that only new readings come in, so frequent syncs are quick." }
         },
         {
           "@type": "Question",
@@ -69,7 +86,7 @@
         {
           "@type": "Question",
           "name": "Will syncing again create duplicate readings?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. The shortcut first asks Apple Health for its newest glucose reading and only imports readings taken after it." }
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The shortcut asks Apple Health for its newest glucose reading first and only imports readings taken after it." }
         },
         {
           "@type": "Question",
@@ -164,8 +181,9 @@
 
   <section class="card">
     <h2>“I read that this is impossible”</h2>
-    <p>Forum answers often say the iCan app has no HealthKit support and no export, and that the only
-      route is an Android phone running xDrip+ or Juggluco feeding Nightscout, plus a native iOS app.</p>
+    <p>The usual answer is that the iCan app has no Apple Health support, so your options are typing
+      readings into Health by hand, a bridge app, an Android phone running xDrip+ or Juggluco feeding
+      Nightscout, or waiting for Sinocare to update the app.</p>
     <p>That is out of date. The iCan app's share button exports an <code>.xls</code> file, and Apple's own
       Shortcuts app can write to Apple Health. The one missing piece was reading that <code>.xls</code>,
       and that is what this shortcut does.</p>
@@ -174,19 +192,21 @@
   <section class="card">
     <h2>FAQ</h2>
     <h3>Does the iCan CGM app sync with Apple Health?</h3>
-    <p>Not by itself, but it can export your readings as an .xls file. This shortcut reads that file and
-      logs each reading into Apple Health with its real measurement time.</p>
-    <h3>Do I need Android, xDrip+, Juggluco or Nightscout?</h3>
-    <p>No. You need an iPhone, the iCan app and Apple's built-in Shortcuts app.</p>
+    <p>Not by itself: the iCan Health / iCan CGM app has no Apple Health switch, but it can export your readings as an .xls file. This shortcut reads that file and logs each reading into Apple Health with its real measurement time.</p>
+    <h3>How do I get iCan readings into Apple Health on iPhone?</h3>
+    <p>Install the shortcut from this page once. Then whenever you want to sync, export / share your data in the iCan app and pick <strong>Sync iCan to Apple Health</strong> in the share sheet. Readings appear in Health → Blood Glucose.</p>
+    <h3>Do I have to enter readings into Apple Health by hand?</h3>
+    <p>No. A CGM records a reading every three minutes, about 480 a day, far too many to type in. The shortcut logs every one with its real measurement time.</p>
+    <h3>Do I need a bridge app, Android, xDrip+, Juggluco or Nightscout?</h3>
+    <p>No. You need an iPhone, the iCan app and Apple's built-in Shortcuts app. No server to set up, no other app account.</p>
+    <h3>Does it sync automatically in the background?</h3>
+    <p>Not yet. You share the export from the iCan app yourself. The first run imports the whole file and can take a few minutes; after that only new readings come in, so frequent syncs are quick.</p>
     <h3>Does it work with iCan i3, i6 and Sibionics?</h3>
-    <p>Yes, with exports from the Thai-language iCan app, in both the original format and the one
-      introduced in its September 2026 update.</p>
+    <p>Yes, with exports from the Thai-language iCan app, in both the original format and the one introduced in its September 2026 update.</p>
     <h3>Will syncing again create duplicate readings?</h3>
-    <p>No. The shortcut asks Apple Health for its newest glucose reading first and only imports
-      readings taken after it.</p>
+    <p>No. The shortcut asks Apple Health for its newest glucose reading first and only imports readings taken after it.</p>
     <h3>Where is my glucose data stored?</h3>
-    <p>Only in Apple Health on your iPhone. The export is sent to a converter that returns the readings
-      and keeps nothing: no database, no accounts.</p>
+    <p>Only in Apple Health on your iPhone. The export is sent to a converter that returns the readings and keeps nothing: no database, no accounts.</p>
   </section>
 
   <footer class="muted">
